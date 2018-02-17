@@ -1,6 +1,8 @@
 # documentation-hydrus
 This reposity contains documentation of [hydrus](https://github.com/HTTP-APIs/hydrus) built using [Sphinx](http://www.sphinx-doc.org/en/master/#)
 
+You can check the current documentation [here](http://hydrus.readthedocs.io/en/latest/)
+
 ### Steps to build doc
 
 * Clone this repository.
