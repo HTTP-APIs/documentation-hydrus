@@ -6,9 +6,9 @@ Welcome to hydra's documentation!
 
    hydrus 
    hydrus.data
-   hydrus.data.legacy
-   hydrus.hydraspec
-   hydrus.hydraspec.legacy
+   hydrus.samples
+   hydrus.tests
+
    
    
 Indices and tables

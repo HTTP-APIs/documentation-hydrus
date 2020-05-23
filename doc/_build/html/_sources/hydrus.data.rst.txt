@@ -12,6 +12,14 @@ hydrus.data.crud module
     :undoc-members:
     :show-inheritance:
 
+hydrus.data.crud\_helpers module
+--------------------------------
+
+.. automodule:: hydrus.data.crud_helpers
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 hydrus.data.db\_models module
 -----------------------------
 
@@ -32,6 +40,14 @@ hydrus.data.exceptions module
 -----------------------------
 
 .. automodule:: hydrus.data.exceptions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+hydrus.data.stale\_records\_cleanup module
+------------------------------------------
+
+.. automodule:: hydrus.data.stale_records_cleanup
     :members:
     :undoc-members:
     :show-inheritance:
