@@ -15,7 +15,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="hydrus.data.legacy package" href="hydrus.data.legacy.html" />
+    <link rel="next" title="hydrus.samples package" href="hydrus.samples.html" />
     <link rel="prev" title="hydrus package" href="hydrus.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -28,7 +28,7 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="hydrus.data.legacy.html" title="hydrus.data.legacy package"
+          <a href="hydrus.samples.html" title="hydrus.samples package"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="hydrus.html" title="hydrus package"
@@ -47,26 +47,839 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="hydrus-data-crud-module">
-<h2>hydrus.data.crud module<a class="headerlink" href="#hydrus-data-crud-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-hydrus.data.crud">
+<span id="hydrus-data-crud-module"></span><h2>hydrus.data.crud module<a class="headerlink" href="#module-hydrus.data.crud" title="Permalink to this headline">¶</a></h2>
+<p>Basic CRUD operations for the server.</p>
+<p>sqlalchemy.orm.with_polymorphic : Load columns for inheriting classes.
+Ref : <a class="reference external" href="http://docs.sqlalchemy.org/en/latest/orm/query.html">http://docs.sqlalchemy.org/en/latest/orm/query.html</a></p>
+<p>sqlalchemy.exists : A convenience method that turns a query into an EXISTS subquery
+of the form EXISTS (SELECT 1 FROM … WHERE …).
+Ref : <a class="reference external" href="http://docs.sqlalchemy.org/en/latest/orm/query.html">http://docs.sqlalchemy.org/en/latest/orm/query.html</a></p>
+<p>sqlalchemy.orm.exc.NoResultFound : A database result was required but none was found.
+Ref : <a class="reference external" href="http://docs.sqlalchemy.org/en/latest/orm/exceptions.html?highlight=result%20found#sqlalchemy.orm.exc.NoResultFound">http://docs.sqlalchemy.org/en/latest/orm/exceptions.html?highlight=result%20found#sqlalchemy.orm.exc.NoResultFound</a></p>
+<p>sqlalchemy.orm.session.Session : Manages persistence operations for ORM-mapped objects.
+Ref : <a class="reference external" href="http://docs.sqlalchemy.org/en/latest/orm/session_api.html?highlight=session#module-sqlalchemy.orm.session">http://docs.sqlalchemy.org/en/latest/orm/session_api.html?highlight=session#module-sqlalchemy.orm.session</a></p>
+<p>hydrus.data.db_models.Graph : Model for a graph that store triples of instance from the other models to map relationships.
+hydrus.data.db_models.BaseProperty : Model for Basic Property.
+hydrus.data.db_models.RDFClass : Model for Classes specifically RDF-OWL or RDF-HYDRA classes.
+hydrus.data.db_models.Instance : Model for Object/Resource. Instances are instances of some kind/classes that are served through the API.
+hydrus.data.db_models.Terminal : Model for Terminals which are numbers or string that can be referenced by a Property.
+hydrus.data.db_models.GraphIAC : Graph model for Instance &gt;&gt; AbstractProperty &gt;&gt; Class.
+hydrus.data.db_models.GraphIIT : Graph model for Instance &gt;&gt; InstanceProperty &gt;&gt; Terminal.
+hydrus.data.db_models.GraphIII : Graph model for Instance &gt;&gt; InstanceProperty &gt;&gt; Instance.</p>
+<p>Ref : ./db_models.py</p>
+<p>hydrus.data.exceptions : Contains all exceptions .
+typing : Module which provides support for type hints .</p>
+<dl class="function">
+<dt id="hydrus.data.crud.delete">
+<code class="descclassname">hydrus.data.crud.</code><code class="descname">delete</code><span class="sig-paren">(</span><em>id_: str</em>, <em>type_: str</em>, <em>session: sqlalchemy.orm.scoping.scoped_session</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#hydrus.data.crud.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete an Instance and all its relations from DB given id [DELETE].
+:param <a href="#id1"><span class="problematic" id="id2">id_</span></a>: id of object to be deleted
+:param <a href="#id3"><span class="problematic" id="id4">type_</span></a>: type of object to be deleted
+:param session: sqlalchemy scoped session</p>
+<dl class="docutils">
+<dt>Raises:</dt>
+<dd>ClassNotFound: If <cite>type_</cite> does not represent a valid/defined RDFClass.
+InstanceNotFound: If no instace of type <cite>type_</cite> with id <cite>id_</cite> exists.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.data.crud.delete_multiple">
+<code class="descclassname">hydrus.data.crud.</code><code class="descname">delete_multiple</code><span class="sig-paren">(</span><em>id_: List[int], type_: str, session: sqlalchemy.orm.scoping.scoped_session</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#hydrus.data.crud.delete_multiple" title="Permalink to this definition">¶</a></dt>
+<dd><p>To delete multiple rows in a single request
+:param <a href="#id5"><span class="problematic" id="id6">id_</span></a>: list of ids for objects to be deleted    :param <a href="#id7"><span class="problematic" id="id8">type_</span></a>: type of object to be deleted
+:param session: sqlalchemy scoped session</p>
+<dl class="docutils">
+<dt>Raises:</dt>
+<dd><p class="first">ClassNotFound: If <cite>type_</cite> does not represent a valid/defined RDFClass.
+InstanceNotFound: If any instance with type ‘<a href="#id9"><span class="problematic" id="id10">type_</span></a>’ and any id in ‘<a href="#id11"><span class="problematic" id="id12">id_</span></a>’ list</p>
+<blockquote class="last">
+<div>does not exist.</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.data.crud.delete_single">
+<code class="descclassname">hydrus.data.crud.</code><code class="descname">delete_single</code><span class="sig-paren">(</span><em>type_: str</em>, <em>session: sqlalchemy.orm.scoping.scoped_session</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#hydrus.data.crud.delete_single" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete instance of classes with single objects.
+:param <a href="#id13"><span class="problematic" id="id14">type_</span></a>: type of object to be deleted
+:param session: sqlalchemy scoped session
+:return: None</p>
+<dl class="docutils">
+<dt>Raises:</dt>
+<dd>ClassNotFound: If <cite>type_</cite> does not represt a valid/defined RDFClass.
+InstanceNotFound: If no Instance of the class exists.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.data.crud.get">
+<code class="descclassname">hydrus.data.crud.</code><code class="descname">get</code><span class="sig-paren">(</span><em>id_: str</em>, <em>type_: str</em>, <em>api_name: str</em>, <em>session: sqlalchemy.orm.scoping.scoped_session</em>, <em>path: str = None</em><span class="sig-paren">)</span> &#x2192; Dict[str, str]<a class="headerlink" href="#hydrus.data.crud.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve an Instance with given ID from the database [GET].
+:param <a href="#id15"><span class="problematic" id="id16">id_</span></a>: id of object to be fetched
+:param <a href="#id17"><span class="problematic" id="id18">type_</span></a>: type of object
+:param api_name: name of api specified while starting server
+:param session: sqlalchemy scoped session
+:param path: endpoint
+:return: response to the request</p>
+<dl class="docutils">
+<dt>Raises:</dt>
+<dd>ClassNotFound: If the <cite>type_</cite> is not a valid/defined RDFClass.
+InstanceNotFound: If no Instance of the ‘type_` class if found.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.data.crud.get_collection">
+<code class="descclassname">hydrus.data.crud.</code><code class="descname">get_collection</code><span class="sig-paren">(</span><em>API_NAME: str</em>, <em>type_: str</em>, <em>session: sqlalchemy.orm.scoping.scoped_session</em>, <em>paginate: bool</em>, <em>page_size: int</em>, <em>search_params: Dict[str</em>, <em>Any] = None</em>, <em>path: str = None</em><span class="sig-paren">)</span> &#x2192; Dict[str, Any]<a class="headerlink" href="#hydrus.data.crud.get_collection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve a type of collection from the database.
+:param API_NAME: api name specified while starting server
+:param <a href="#id19"><span class="problematic" id="id20">type_</span></a>: type of object to be updated
+:param session: sqlalchemy scoped session
+:param paginate: Enable/disable pagination
+:param page_size: Number maximum elements showed in a page
+:param search_params: Query parameters
+:param path: endpoint
+:return: response containing a page of the objects of that particular <a href="#id21"><span class="problematic" id="id22">type_</span></a></p>
+<dl class="docutils">
+<dt>Raises:</dt>
+<dd>ClassNotFound: If <cite>type_</cite> does not represent a valid/defined RDFClass.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.data.crud.get_last_modification_job_id">
+<code class="descclassname">hydrus.data.crud.</code><code class="descname">get_last_modification_job_id</code><span class="sig-paren">(</span><em>session: sqlalchemy.orm.scoping.scoped_session</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#hydrus.data.crud.get_last_modification_job_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get job id of most recent modification record stored in the db.
+:param session: sqlalchemy session
+:return: job id of recent modification.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.data.crud.get_modification_table_diff">
+<code class="descclassname">hydrus.data.crud.</code><code class="descname">get_modification_table_diff</code><span class="sig-paren">(</span><em>session: sqlalchemy.orm.scoping.scoped_session</em>, <em>agent_job_id: str = None</em><span class="sig-paren">)</span> &#x2192; List[Dict[str, Any]]<a class="headerlink" href="#hydrus.data.crud.get_modification_table_diff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get modification table difference.
+:param session: sqlalchemy session.
+:param agent_job_id: Job id from the client.
+:return: List of all modifications done after job with job_id = agent_job_id.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.data.crud.get_single">
+<code class="descclassname">hydrus.data.crud.</code><code class="descname">get_single</code><span class="sig-paren">(</span><em>type_: str</em>, <em>api_name: str</em>, <em>session: sqlalchemy.orm.scoping.scoped_session</em>, <em>path: str = None</em><span class="sig-paren">)</span> &#x2192; Dict[str, Any]<a class="headerlink" href="#hydrus.data.crud.get_single" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get instance of classes with single objects.
+:param <a href="#id23"><span class="problematic" id="id24">type_</span></a>: type of object to be updated
+:param api_name: api name specified while starting server
+:param session: sqlalchemy scoped session
+:param path: endpoint
+:return: response containing information about a single object</p>
+<dl class="docutils">
+<dt>Raises:</dt>
+<dd>ClassNotFound: If <cite>type_</cite> does not represt a valid/defined RDFClass.
+InstanceNotFound: If no Instance with type <cite>type_</cite> exists.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.data.crud.insert">
+<code class="descclassname">hydrus.data.crud.</code><code class="descname">insert</code><span class="sig-paren">(</span><em>object_: Dict[str, Any], session: sqlalchemy.orm.scoping.scoped_session, link_props: Dict[str, Any] = {}, id_: Union[str, NoneType] = None</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#hydrus.data.crud.insert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert an object to database [POST] and returns the inserted object.
+:param <a href="#id25"><span class="problematic" id="id26">object_</span></a>: object to be inserted
+:param link_props: Hydra link properties in the object.
+:param session: sqlalchemy scoped session
+:param <a href="#id27"><span class="problematic" id="id28">id_</span></a>: id of the object to be inserted (optional param)
+:return: ID of object inserted</p>
+<dl class="docutils">
+<dt>Raises:</dt>
+<dd><p class="first">ClassNotFound: If <cite>object_[“&#64;type”] is not a valid/defined RDFClass.
+InstanceExists: If an Instance `id_</cite> already exists.
+PropertyNotFound: If any property name of <cite>object_</cite> other than <cite>&#64;type</cite> or <cite>&#64;context</cite></p>
+<blockquote>
+<div>is not a valid/defined property.</div></blockquote>
+<dl class="last docutils">
+<dt>NotInstanceProperty: If any property of <cite>object_</cite> is a dictionary but</dt>
+<dd>not an Instance property</dd>
+<dt>NotAbstractProperty: If any property of <cite>object_</cite> is a</dt>
+<dd>valid/defined RDFClass but is not a dictionary neither an Abstract Property</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.data.crud.insert_iac">
+<code class="descclassname">hydrus.data.crud.</code><code class="descname">insert_iac</code><span class="sig-paren">(</span><em>object_: Dict[str, Any], prop_name: str, instance: hydrus.data.db_models.Instance, property_: hydrus.data.db_models.BaseProperty, session: sqlalchemy.orm.scoping.scoped_session</em><span class="sig-paren">)</span> &#x2192; hydrus.data.db_models.GraphIAC<a class="headerlink" href="#hydrus.data.crud.insert_iac" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert a GraphIAC triple in the database.
+:param <a href="#id29"><span class="problematic" id="id30">object_</span></a>:  Object body.
+:param prop_name: Property name.
+:param instance: Instance for the newly added object.
+:param <a href="#id31"><span class="problematic" id="id32">property_</span></a>: Predicate in the new triple being inserted.
+:param session: sqlalchemy session.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">GraphIAC triple.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.data.crud.insert_iii">
+<code class="descclassname">hydrus.data.crud.</code><code class="descname">insert_iii</code><span class="sig-paren">(</span><em>object_: Dict[str, Any], prop_name: str, instance: hydrus.data.db_models.Instance, property_: hydrus.data.db_models.BaseProperty, session: sqlalchemy.orm.scoping.scoped_session</em><span class="sig-paren">)</span> &#x2192; hydrus.data.db_models.GraphIII<a class="headerlink" href="#hydrus.data.crud.insert_iii" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert a GraphIII triple in the database.
+:param <a href="#id33"><span class="problematic" id="id34">object_</span></a>:  Object body.
+:param prop_name: Property name.
+:param instance: Instance for the newly added object.
+:param <a href="#id35"><span class="problematic" id="id36">property_</span></a>: Predicate in the new triple being inserted.
+:param session: sqlalchemy session.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">GraphIII triple.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body">NotInstanceProperty</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.data.crud.insert_iii_with_link">
+<code class="descclassname">hydrus.data.crud.</code><code class="descname">insert_iii_with_link</code><span class="sig-paren">(</span><em>instance_id: str</em>, <em>property_: hydrus.data.db_models.BaseProperty</em>, <em>property_value: str</em>, <em>session: sqlalchemy.orm.scoping.scoped_session</em><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.data.crud.insert_iii_with_link" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inserts GraphIII triple to store a relation defined with <a class="reference external" href="hydra:Link">hydra:Link</a>.
+:param instance_id:  Id of the instance being inserted
+:param <a href="#id37"><span class="problematic" id="id38">property_</span></a>: Property being used as predicate in the new triple.
+:param property_value: Value of the property being inserted.
+:param session: sqlalchemy session
+:return:</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.data.crud.insert_iit">
+<code class="descclassname">hydrus.data.crud.</code><code class="descname">insert_iit</code><span class="sig-paren">(</span><em>object_: Dict[str, Any], prop_name: str, instance: hydrus.data.db_models.Instance, property_: hydrus.data.db_models.BaseProperty, session: sqlalchemy.orm.scoping.scoped_session</em><span class="sig-paren">)</span> &#x2192; hydrus.data.db_models.GraphIIT<a class="headerlink" href="#hydrus.data.crud.insert_iit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert a GraphIIT triple in the database.
+:param <a href="#id39"><span class="problematic" id="id40">object_</span></a>:  Object body.
+:param prop_name: Property name.
+:param instance: Instance for the newly added object.
+:param <a href="#id41"><span class="problematic" id="id42">property_</span></a>: Predicate in the new triple being inserted.
+:param session: sqlalchemy session.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">GraphIIT triple.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body">NotInstanceProperty</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.data.crud.insert_modification_record">
+<code class="descclassname">hydrus.data.crud.</code><code class="descname">insert_modification_record</code><span class="sig-paren">(</span><em>method: str</em>, <em>resource_url: str</em>, <em>session: sqlalchemy.orm.scoping.scoped_session</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#hydrus.data.crud.insert_modification_record" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert a modification record into the database.
+:param method: HTTP method type of related operation.
+:param resource_url: URL of resource modified.
+:param session: sqlalchemy session.
+:return: ID of new modification record.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.data.crud.insert_multiple">
+<code class="descclassname">hydrus.data.crud.</code><code class="descname">insert_multiple</code><span class="sig-paren">(</span><em>objects_: List[Dict[str, Any]], session: sqlalchemy.orm.scoping.scoped_session, link_props_list: List[Dict[str, Any]] = [], id_: Union[str, NoneType] = ''</em><span class="sig-paren">)</span> &#x2192; List[str]<a class="headerlink" href="#hydrus.data.crud.insert_multiple" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a list of object with given ids to the database
+:param <a href="#id43"><span class="problematic" id="id44">objects_</span></a>: List of dict’s to be added to the database
+:param session: scoped session from getSession in utils
+:param link_props_list: List of link properties for each object being inserted.
+:param <a href="#id45"><span class="problematic" id="id46">id_</span></a>: optional parameter containing the ids of objects that have to be inserted
+:return: Ids that have been inserted</p>
+<dl class="docutils">
+<dt>Raises:</dt>
+<dd><p class="first">ClassNotFound: If any dict of <cite>objects_</cite> is not a valid/defined RDFClass.
+InstanceExists: If an Instance with same id already exists.
+PropertyNotFound: If for any dict in ‘<a href="#id47"><span class="problematic" id="id48">objects_</span></a>’ if any property is not</p>
+<blockquote>
+<div>a valid/defined property.</div></blockquote>
+<dl class="last docutils">
+<dt>NotAnInstanceProperty: If any property of a dict in <cite>object_</cite> is a dictionary but</dt>
+<dd>not an Instance property</dd>
+<dt>NotAnAbstractProperty: If any property of a dict in <cite>object_</cite> is a</dt>
+<dd>valid/defined RDFClass but is not a dictionary neither an Abstract Property</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.data.crud.insert_single">
+<code class="descclassname">hydrus.data.crud.</code><code class="descname">insert_single</code><span class="sig-paren">(</span><em>object_: Dict[str, Any], session: sqlalchemy.orm.scoping.scoped_session</em><span class="sig-paren">)</span> &#x2192; Any<a class="headerlink" href="#hydrus.data.crud.insert_single" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert instance of classes with single objects.
+:param <a href="#id49"><span class="problematic" id="id50">object_</span></a>: object to be inserted
+:param session: sqlalchemy scoped session
+:return:</p>
+<dl class="docutils">
+<dt>Raises:</dt>
+<dd>ClassNotFound: If <cite>type_</cite> does not represt a valid/defined RDFClass.
+Instance: If an Instance of type <cite>type_</cite> already exists.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.data.crud.update">
+<code class="descclassname">hydrus.data.crud.</code><code class="descname">update</code><span class="sig-paren">(</span><em>id_: str, type_: str, object_: Dict[str, str], session: sqlalchemy.orm.scoping.scoped_session, api_name: str, link_props: Dict[str, Any] = {}, path: str = None</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#hydrus.data.crud.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update an object properties based on the given object [PUT].
+:param <a href="#id51"><span class="problematic" id="id52">id_</span></a>: if of object to be updated
+:param <a href="#id53"><span class="problematic" id="id54">type_</span></a>: type of object to be updated
+:param <a href="#id55"><span class="problematic" id="id56">object_</span></a>: object that has to be inserted
+:param session: sqlalchemy scoped session
+:param api_name: api name specified while starting server
+:param link_props: Link properties of the object being updated.
+:param path: endpoint
+:return: id of updated object</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.data.crud.update_single">
+<code class="descclassname">hydrus.data.crud.</code><code class="descname">update_single</code><span class="sig-paren">(</span><em>object_: Dict[str, Any], session: sqlalchemy.orm.scoping.scoped_session, api_name: str, link_props: Dict[str, Any], path: str = None</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#hydrus.data.crud.update_single" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update instance of classes with single objects.
+:param <a href="#id57"><span class="problematic" id="id58">object_</span></a>: new object
+:param session: sqlalchemy scoped session
+:param api_name: api name specified while starting server
+:param link_props: Link properties of the object being updated
+:param path: endpoint
+:return: id of the updated object</p>
+<dl class="docutils">
+<dt>Raises:</dt>
+<dd>ClassNotFound: If <cite>object[‘&#64;type’]</cite> does not represt a valid/defined RDFClass.
+InstanceNotFound: If no Instance of the class exists.</dd>
+</dl>
+</dd></dl>
+
 </div>
-<div class="section" id="hydrus-data-db-models-module">
-<h2>hydrus.data.db_models module<a class="headerlink" href="#hydrus-data-db-models-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-hydrus.data.crud_helpers">
+<span id="hydrus-data-crud-helpers-module"></span><h2>hydrus.data.crud_helpers module<a class="headerlink" href="#module-hydrus.data.crud_helpers" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="hydrus.data.crud_helpers.apply_filter">
+<code class="descclassname">hydrus.data.crud_helpers.</code><code class="descname">apply_filter</code><span class="sig-paren">(</span><em>object_id: str, search_props: Dict[str, Any], triples: hydrus.data.db_models.Graph, session: sqlalchemy.orm.scoping.scoped_session</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#hydrus.data.crud_helpers.apply_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check whether objects has properties with query values or not.
+:param object_id: Id of the instance.
+:param search_props: Dictionary of query parameters with property id and values.
+:param triples: All triples.
+:param session: sqlalchemy scoped session.
+:return: True if the instance has properties with given values, False otherwise.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.data.crud_helpers.attach_hydra_view">
+<code class="descclassname">hydrus.data.crud_helpers.</code><code class="descname">attach_hydra_view</code><span class="sig-paren">(</span><em>collection_template: Dict[str, Any], paginate_param: str, result_length: int, page_size: int, iri: str, offset: int = None, page: int = None, last: int = None</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#hydrus.data.crud_helpers.attach_hydra_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attaches <a class="reference external" href="hydra:view">hydra:view</a> to the collection template.
+:param collection_template: the collection template.
+:param paginate_param: type of paginate parameter used.
+:param result_length: length of the result set.
+:param page_size: size of the page.
+:param iri: IRI of the collection with query parameters except “page”, “pageIndex” and “offset”.
+:param offset: offset used for pagination, None if not used.
+:param page: page number used for pagination, None if not used.
+:param last: Page number of the last page only used when “page” or “pageIndex”</p>
+<blockquote>
+<div>is used for pagination, None otherwise.</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.data.crud_helpers.calculate_page_limit_and_offset">
+<code class="descclassname">hydrus.data.crud_helpers.</code><code class="descname">calculate_page_limit_and_offset</code><span class="sig-paren">(</span><em>paginate: bool</em>, <em>page_size: int</em>, <em>page: int</em>, <em>result_length: int</em>, <em>offset: int</em>, <em>limit: int</em><span class="sig-paren">)</span> &#x2192; Tuple[int, int]<a class="headerlink" href="#hydrus.data.crud_helpers.calculate_page_limit_and_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate page limit and offset for pagination.
+:param paginate: Showing whether pagination is enable/disable.
+:param page_size: Number maximum elements showed in a page.
+:param page: page number.
+:param result_length: Length of the list containing desired elements.
+:param offset: offset value.
+:param limit: page limit.
+:return: page limit and offset.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.data.crud_helpers.parse_search_params">
+<code class="descclassname">hydrus.data.crud_helpers.</code><code class="descname">parse_search_params</code><span class="sig-paren">(</span><em>search_params: Dict[str, Any], properties: hydrus.data.db_models.BaseProperty, session: sqlalchemy.orm.scoping.scoped_session</em><span class="sig-paren">)</span> &#x2192; Dict[str, Any]<a class="headerlink" href="#hydrus.data.crud_helpers.parse_search_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse search parameters and create a dict with id of parameters as keys.
+:param search_params: Dictionary having input search parameters.
+:param properties: All properties.
+:param session: sqlalchemy session.
+:return: A dictionary having property ids as keys.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.data.crud_helpers.pre_process_pagination_parameters">
+<code class="descclassname">hydrus.data.crud_helpers.</code><code class="descname">pre_process_pagination_parameters</code><span class="sig-paren">(</span><em>search_params: Dict[str, Any], paginate: bool, page_size: int, result_length: int</em><span class="sig-paren">)</span> &#x2192; Tuple[[int, int], int]<a class="headerlink" href="#hydrus.data.crud_helpers.pre_process_pagination_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pre-process pagination related query parameters passed by client.
+:param search_params: Dict of all search parameters.
+:param paginate: Indicates if pagination is enabled/disabled.
+:param page_size: Maximum element a page can contain.
+:param result_length: Length of the list of containing desired items.
+:return: returns page number, page limit and offset.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.data.crud_helpers.recreate_iri">
+<code class="descclassname">hydrus.data.crud_helpers.</code><code class="descname">recreate_iri</code><span class="sig-paren">(</span><em>API_NAME: str, path: str, search_params: Dict[str, Any]</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#hydrus.data.crud_helpers.recreate_iri" title="Permalink to this definition">¶</a></dt>
+<dd><p>Recreate the IRI with query arguments
+:param API_NAME: API name specified while starting the server.
+:param path: endpoint
+:param search_params: List of query parameters.
+:return: Recreated IRI.</p>
+</dd></dl>
+
 </div>
-<div class="section" id="hydrus-data-doc-parse-module">
-<h2>hydrus.data.doc_parse module<a class="headerlink" href="#hydrus-data-doc-parse-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-hydrus.data.db_models">
+<span id="hydrus-data-db-models-module"></span><h2>hydrus.data.db_models module<a class="headerlink" href="#module-hydrus.data.db_models" title="Permalink to this headline">¶</a></h2>
+<p>Models for Hydra Classes.</p>
+<dl class="class">
+<dt id="hydrus.data.db_models.AbstractProperty">
+<em class="property">class </em><code class="descclassname">hydrus.data.db_models.</code><code class="descname">AbstractProperty</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.data.db_models.AbstractProperty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#hydrus.data.db_models.BaseProperty" title="hydrus.data.db_models.BaseProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">hydrus.data.db_models.BaseProperty</span></code></a></p>
+<p>Model for Abstract Properties.
+Abstract Properties are properties that are used as predicate between two RDF-OWL classes.
+&gt;&gt;&gt; prop1 = BaseProperty(‘hasWeight’)
+&gt;&gt;&gt; prop2 = BaseProperty(‘hasCost’)
+Example of a triple:</p>
+<blockquote>
+<div>RDFClass(‘A’) Property(‘isSubSystemOf’) RDFClass(‘B’)</div></blockquote>
+<dl class="attribute">
+<dt id="hydrus.data.db_models.AbstractProperty.id">
+<code class="descname">id</code><a class="headerlink" href="#hydrus.data.db_models.AbstractProperty.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.data.db_models.AbstractProperty.name">
+<code class="descname">name</code><a class="headerlink" href="#hydrus.data.db_models.AbstractProperty.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.data.db_models.AbstractProperty.type_">
+<code class="descname">type_</code><a class="headerlink" href="#hydrus.data.db_models.AbstractProperty.type_" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="hydrus.data.db_models.BaseProperty">
+<em class="property">class </em><code class="descclassname">hydrus.data.db_models.</code><code class="descname">BaseProperty</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.data.db_models.BaseProperty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<p>Model for Basic Property.</p>
+<dl class="attribute">
+<dt id="hydrus.data.db_models.BaseProperty.id">
+<code class="descname">id</code><a class="headerlink" href="#hydrus.data.db_models.BaseProperty.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.data.db_models.BaseProperty.name">
+<code class="descname">name</code><a class="headerlink" href="#hydrus.data.db_models.BaseProperty.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.data.db_models.BaseProperty.type_">
+<code class="descname">type_</code><a class="headerlink" href="#hydrus.data.db_models.BaseProperty.type_" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="hydrus.data.db_models.Graph">
+<em class="property">class </em><code class="descclassname">hydrus.data.db_models.</code><code class="descname">Graph</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.data.db_models.Graph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<p>Model for a graph that store triples of instance from the other models
+to map relationships.</p>
+<dl class="attribute">
+<dt id="hydrus.data.db_models.Graph.id">
+<code class="descname">id</code><a class="headerlink" href="#hydrus.data.db_models.Graph.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.data.db_models.Graph.type">
+<code class="descname">type</code><a class="headerlink" href="#hydrus.data.db_models.Graph.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="hydrus.data.db_models.GraphCAC">
+<em class="property">class </em><code class="descclassname">hydrus.data.db_models.</code><code class="descname">GraphCAC</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.data.db_models.GraphCAC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#hydrus.data.db_models.Graph" title="hydrus.data.db_models.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">hydrus.data.db_models.Graph</span></code></a></p>
+<p>Graph model for Class &gt;&gt; AbstractProperty &gt;&gt; Class.</p>
+<dl class="attribute">
+<dt id="hydrus.data.db_models.GraphCAC.id">
+<code class="descname">id</code><a class="headerlink" href="#hydrus.data.db_models.GraphCAC.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.data.db_models.GraphCAC.object_">
+<code class="descname">object_</code><a class="headerlink" href="#hydrus.data.db_models.GraphCAC.object_" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.data.db_models.GraphCAC.predicate">
+<code class="descname">predicate</code><a class="headerlink" href="#hydrus.data.db_models.GraphCAC.predicate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.data.db_models.GraphCAC.subject">
+<code class="descname">subject</code><a class="headerlink" href="#hydrus.data.db_models.GraphCAC.subject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.data.db_models.GraphCAC.type">
+<code class="descname">type</code><a class="headerlink" href="#hydrus.data.db_models.GraphCAC.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="hydrus.data.db_models.GraphIAC">
+<em class="property">class </em><code class="descclassname">hydrus.data.db_models.</code><code class="descname">GraphIAC</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.data.db_models.GraphIAC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#hydrus.data.db_models.Graph" title="hydrus.data.db_models.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">hydrus.data.db_models.Graph</span></code></a></p>
+<p>Graph model for Instance &gt;&gt; AbstractProperty &gt;&gt; Class.</p>
+<dl class="attribute">
+<dt id="hydrus.data.db_models.GraphIAC.id">
+<code class="descname">id</code><a class="headerlink" href="#hydrus.data.db_models.GraphIAC.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.data.db_models.GraphIAC.object_">
+<code class="descname">object_</code><a class="headerlink" href="#hydrus.data.db_models.GraphIAC.object_" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.data.db_models.GraphIAC.predicate">
+<code class="descname">predicate</code><a class="headerlink" href="#hydrus.data.db_models.GraphIAC.predicate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.data.db_models.GraphIAC.subject">
+<code class="descname">subject</code><a class="headerlink" href="#hydrus.data.db_models.GraphIAC.subject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.data.db_models.GraphIAC.type">
+<code class="descname">type</code><a class="headerlink" href="#hydrus.data.db_models.GraphIAC.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="hydrus.data.db_models.GraphIII">
+<em class="property">class </em><code class="descclassname">hydrus.data.db_models.</code><code class="descname">GraphIII</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.data.db_models.GraphIII" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#hydrus.data.db_models.Graph" title="hydrus.data.db_models.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">hydrus.data.db_models.Graph</span></code></a></p>
+<p>Graph model for Instance &gt;&gt; InstanceProperty &gt;&gt; Instance.</p>
+<dl class="attribute">
+<dt id="hydrus.data.db_models.GraphIII.id">
+<code class="descname">id</code><a class="headerlink" href="#hydrus.data.db_models.GraphIII.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.data.db_models.GraphIII.object_">
+<code class="descname">object_</code><a class="headerlink" href="#hydrus.data.db_models.GraphIII.object_" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.data.db_models.GraphIII.predicate">
+<code class="descname">predicate</code><a class="headerlink" href="#hydrus.data.db_models.GraphIII.predicate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.data.db_models.GraphIII.subject">
+<code class="descname">subject</code><a class="headerlink" href="#hydrus.data.db_models.GraphIII.subject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.data.db_models.GraphIII.type">
+<code class="descname">type</code><a class="headerlink" href="#hydrus.data.db_models.GraphIII.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="hydrus.data.db_models.GraphIIT">
+<em class="property">class </em><code class="descclassname">hydrus.data.db_models.</code><code class="descname">GraphIIT</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.data.db_models.GraphIIT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#hydrus.data.db_models.Graph" title="hydrus.data.db_models.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">hydrus.data.db_models.Graph</span></code></a></p>
+<p>Graph model for Instance &gt;&gt; InstanceProperty &gt;&gt; Terminal.</p>
+<dl class="attribute">
+<dt id="hydrus.data.db_models.GraphIIT.id">
+<code class="descname">id</code><a class="headerlink" href="#hydrus.data.db_models.GraphIIT.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.data.db_models.GraphIIT.object_">
+<code class="descname">object_</code><a class="headerlink" href="#hydrus.data.db_models.GraphIIT.object_" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.data.db_models.GraphIIT.predicate">
+<code class="descname">predicate</code><a class="headerlink" href="#hydrus.data.db_models.GraphIIT.predicate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.data.db_models.GraphIIT.subject">
+<code class="descname">subject</code><a class="headerlink" href="#hydrus.data.db_models.GraphIIT.subject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.data.db_models.GraphIIT.type">
+<code class="descname">type</code><a class="headerlink" href="#hydrus.data.db_models.GraphIIT.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="hydrus.data.db_models.Instance">
+<em class="property">class </em><code class="descclassname">hydrus.data.db_models.</code><code class="descname">Instance</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.data.db_models.Instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<p>Model for Object/Resource.
+Instances are instances of some kind/classes that are served through the API.</p>
+<dl class="attribute">
+<dt id="hydrus.data.db_models.Instance.created">
+<code class="descname">created</code><a class="headerlink" href="#hydrus.data.db_models.Instance.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.data.db_models.Instance.id">
+<code class="descname">id</code><a class="headerlink" href="#hydrus.data.db_models.Instance.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.data.db_models.Instance.last_modified">
+<code class="descname">last_modified</code><a class="headerlink" href="#hydrus.data.db_models.Instance.last_modified" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.data.db_models.Instance.type_">
+<code class="descname">type_</code><a class="headerlink" href="#hydrus.data.db_models.Instance.type_" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="hydrus.data.db_models.InstanceProperty">
+<em class="property">class </em><code class="descclassname">hydrus.data.db_models.</code><code class="descname">InstanceProperty</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.data.db_models.InstanceProperty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#hydrus.data.db_models.BaseProperty" title="hydrus.data.db_models.BaseProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">hydrus.data.db_models.BaseProperty</span></code></a></p>
+<p>Model for Instance Properties.
+Instance Properties are properties that are used as predicate when the subject is an Instance.
+&gt;&gt;&gt; prop1 = BaseProperty(‘hasWeight’)
+&gt;&gt;&gt; prop2 = BaseProperty(‘hasCost’)</p>
+<dl class="attribute">
+<dt id="hydrus.data.db_models.InstanceProperty.id">
+<code class="descname">id</code><a class="headerlink" href="#hydrus.data.db_models.InstanceProperty.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.data.db_models.InstanceProperty.name">
+<code class="descname">name</code><a class="headerlink" href="#hydrus.data.db_models.InstanceProperty.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.data.db_models.InstanceProperty.type_">
+<code class="descname">type_</code><a class="headerlink" href="#hydrus.data.db_models.InstanceProperty.type_" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="hydrus.data.db_models.Modification">
+<em class="property">class </em><code class="descclassname">hydrus.data.db_models.</code><code class="descname">Modification</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.data.db_models.Modification" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<p>Model for sync related state-changing modifications.</p>
+<dl class="attribute">
+<dt id="hydrus.data.db_models.Modification.job_id">
+<code class="descname">job_id</code><a class="headerlink" href="#hydrus.data.db_models.Modification.job_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.data.db_models.Modification.method">
+<code class="descname">method</code><a class="headerlink" href="#hydrus.data.db_models.Modification.method" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.data.db_models.Modification.resource_url">
+<code class="descname">resource_url</code><a class="headerlink" href="#hydrus.data.db_models.Modification.resource_url" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="hydrus.data.db_models.Nonce">
+<em class="property">class </em><code class="descclassname">hydrus.data.db_models.</code><code class="descname">Nonce</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.data.db_models.Nonce" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<p>Model for storing nonce for the users.</p>
+<dl class="attribute">
+<dt id="hydrus.data.db_models.Nonce.id">
+<code class="descname">id</code><a class="headerlink" href="#hydrus.data.db_models.Nonce.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.data.db_models.Nonce.timestamp">
+<code class="descname">timestamp</code><a class="headerlink" href="#hydrus.data.db_models.Nonce.timestamp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="hydrus.data.db_models.RDFClass">
+<em class="property">class </em><code class="descclassname">hydrus.data.db_models.</code><code class="descname">RDFClass</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.data.db_models.RDFClass" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<p>Model for Classes.
+Classes are RDF-OWL or RDF-HYDRA classes.</p>
+<dl class="attribute">
+<dt id="hydrus.data.db_models.RDFClass.id">
+<code class="descname">id</code><a class="headerlink" href="#hydrus.data.db_models.RDFClass.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.data.db_models.RDFClass.name">
+<code class="descname">name</code><a class="headerlink" href="#hydrus.data.db_models.RDFClass.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="hydrus.data.db_models.Terminal">
+<em class="property">class </em><code class="descclassname">hydrus.data.db_models.</code><code class="descname">Terminal</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.data.db_models.Terminal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<p>Model for Terminals.
+Terminals are numbers or string that can be referenced by a Property. They can be only</p>
+<blockquote>
+<div>objects in a triple.</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">Terminal</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">85</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;cubic centimeters&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t1</span> <span class="o">=</span> <span class="n">Terminal</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;Cubesat&#39;</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;standard&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="attribute">
+<dt id="hydrus.data.db_models.Terminal.id">
+<code class="descname">id</code><a class="headerlink" href="#hydrus.data.db_models.Terminal.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.data.db_models.Terminal.unit">
+<code class="descname">unit</code><a class="headerlink" href="#hydrus.data.db_models.Terminal.unit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.data.db_models.Terminal.value">
+<code class="descname">value</code><a class="headerlink" href="#hydrus.data.db_models.Terminal.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="hydrus.data.db_models.Token">
+<em class="property">class </em><code class="descclassname">hydrus.data.db_models.</code><code class="descname">Token</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.data.db_models.Token" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<p>Model for storing tokens for the users.</p>
+<dl class="attribute">
+<dt id="hydrus.data.db_models.Token.expiry">
+<code class="descname">expiry</code><a class="headerlink" href="#hydrus.data.db_models.Token.expiry" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.data.db_models.Token.id">
+<code class="descname">id</code><a class="headerlink" href="#hydrus.data.db_models.Token.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="hydrus.data.db_models.Token.is_valid">
+<code class="descname">is_valid</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.data.db_models.Token.is_valid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.data.db_models.Token.timestamp">
+<code class="descname">timestamp</code><a class="headerlink" href="#hydrus.data.db_models.Token.timestamp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.data.db_models.Token.user_id">
+<code class="descname">user_id</code><a class="headerlink" href="#hydrus.data.db_models.Token.user_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="hydrus.data.db_models.User">
+<em class="property">class </em><code class="descclassname">hydrus.data.db_models.</code><code class="descname">User</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.data.db_models.User" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<p>Model for a user that stores the ID, paraphrase and a nonce.</p>
+<dl class="attribute">
+<dt id="hydrus.data.db_models.User.id">
+<code class="descname">id</code><a class="headerlink" href="#hydrus.data.db_models.User.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.data.db_models.User.paraphrase">
+<code class="descname">paraphrase</code><a class="headerlink" href="#hydrus.data.db_models.User.paraphrase" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-hydrus.data.doc_parse">
+<span id="hydrus-data-doc-parse-module"></span><h2>hydrus.data.doc_parse module<a class="headerlink" href="#module-hydrus.data.doc_parse" title="Permalink to this headline">¶</a></h2>
+<p>Parser for Hydra APIDocumentation creates Classes and Properties.</p>
+<dl class="function">
+<dt id="hydrus.data.doc_parse.get_all_properties">
+<code class="descclassname">hydrus.data.doc_parse.</code><code class="descname">get_all_properties</code><span class="sig-paren">(</span><em>classes: List[Dict[str, Any]]</em><span class="sig-paren">)</span> &#x2192; Set[str]<a class="headerlink" href="#hydrus.data.doc_parse.get_all_properties" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all the properties in the APIDocumentation.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.data.doc_parse.get_classes">
+<code class="descclassname">hydrus.data.doc_parse.</code><code class="descname">get_classes</code><span class="sig-paren">(</span><em>apidoc: Dict[str, Any]</em><span class="sig-paren">)</span> &#x2192; List[Dict[str, Any]]<a class="headerlink" href="#hydrus.data.doc_parse.get_classes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all the classes in the APIDocumentation.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.data.doc_parse.insert_classes">
+<code class="descclassname">hydrus.data.doc_parse.</code><code class="descname">insert_classes</code><span class="sig-paren">(</span><em>classes: List[Dict[str, Any]], session: sqlalchemy.orm.scoping.scoped_session</em><span class="sig-paren">)</span> &#x2192; Union[typing.Any, NoneType]<a class="headerlink" href="#hydrus.data.doc_parse.insert_classes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert all the classes as defined in the APIDocumentation into DB.</p>
+<dl class="docutils">
+<dt>Raises:</dt>
+<dd>TypeError: If <cite>session</cite> is not an instance of <cite>scoped_session</cite> or <cite>Session</cite>.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.data.doc_parse.insert_properties">
+<code class="descclassname">hydrus.data.doc_parse.</code><code class="descname">insert_properties</code><span class="sig-paren">(</span><em>properties: Set[str], session: sqlalchemy.orm.scoping.scoped_session</em><span class="sig-paren">)</span> &#x2192; Union[typing.Any, NoneType]<a class="headerlink" href="#hydrus.data.doc_parse.insert_properties" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert all the properties as defined in the APIDocumentation into DB.</p>
+</dd></dl>
+
 </div>
 <div class="section" id="module-hydrus.data.exceptions">
 <span id="hydrus-data-exceptions-module"></span><h2>hydrus.data.exceptions module<a class="headerlink" href="#module-hydrus.data.exceptions" title="Permalink to this headline">¶</a></h2>
 <p>Exceptions for the crud operations.</p>
 <dl class="exception">
 <dt id="hydrus.data.exceptions.ClassNotFound">
-<em class="property">exception </em><code class="descclassname">hydrus.data.exceptions.</code><code class="descname">ClassNotFound</code><span class="sig-paren">(</span><em>type_</em><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.data.exceptions.ClassNotFound" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="descclassname">hydrus.data.exceptions.</code><code class="descname">ClassNotFound</code><span class="sig-paren">(</span><em>type_: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#hydrus.data.exceptions.ClassNotFound" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
 <p>Error when the RDFClass is not found.</p>
 <dl class="method">
 <dt id="hydrus.data.exceptions.ClassNotFound.get_HTTP">
-<code class="descname">get_HTTP</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.data.exceptions.ClassNotFound.get_HTTP" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_HTTP</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; hydra_python_core.doc_writer.HydraError<a class="headerlink" href="#hydrus.data.exceptions.ClassNotFound.get_HTTP" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the HTTP response for the Exception.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="hydrus.data.exceptions.IncompatibleParameters">
+<em class="property">exception </em><code class="descclassname">hydrus.data.exceptions.</code><code class="descname">IncompatibleParameters</code><span class="sig-paren">(</span><em>params: List[str]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#hydrus.data.exceptions.IncompatibleParameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Error when two or more query parameters are incompatible with each other.</p>
+<dl class="method">
+<dt id="hydrus.data.exceptions.IncompatibleParameters.get_HTTP">
+<code class="descname">get_HTTP</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; hydra_python_core.doc_writer.HydraError<a class="headerlink" href="#hydrus.data.exceptions.IncompatibleParameters.get_HTTP" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the HTTP response for the Exception.</p>
 </dd></dl>
 
@@ -74,12 +887,12 @@
 
 <dl class="exception">
 <dt id="hydrus.data.exceptions.InstanceExists">
-<em class="property">exception </em><code class="descclassname">hydrus.data.exceptions.</code><code class="descname">InstanceExists</code><span class="sig-paren">(</span><em>type_</em>, <em>id_=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.data.exceptions.InstanceExists" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="descclassname">hydrus.data.exceptions.</code><code class="descname">InstanceExists</code><span class="sig-paren">(</span><em>type_: str</em>, <em>id_: Union[str</em>, <em>NoneType] = None</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#hydrus.data.exceptions.InstanceExists" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
 <p>Error when the Instance already exists.</p>
 <dl class="method">
 <dt id="hydrus.data.exceptions.InstanceExists.get_HTTP">
-<code class="descname">get_HTTP</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.data.exceptions.InstanceExists.get_HTTP" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_HTTP</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; hydra_python_core.doc_writer.HydraError<a class="headerlink" href="#hydrus.data.exceptions.InstanceExists.get_HTTP" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the HTTP response for the Exception.</p>
 </dd></dl>
 
@@ -87,12 +900,25 @@
 
 <dl class="exception">
 <dt id="hydrus.data.exceptions.InstanceNotFound">
-<em class="property">exception </em><code class="descclassname">hydrus.data.exceptions.</code><code class="descname">InstanceNotFound</code><span class="sig-paren">(</span><em>type_</em>, <em>id_=None</em><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.data.exceptions.InstanceNotFound" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="descclassname">hydrus.data.exceptions.</code><code class="descname">InstanceNotFound</code><span class="sig-paren">(</span><em>type_: str</em>, <em>id_: Union[str</em>, <em>NoneType] = None</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#hydrus.data.exceptions.InstanceNotFound" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
 <p>Error when the Instance is not found.</p>
 <dl class="method">
 <dt id="hydrus.data.exceptions.InstanceNotFound.get_HTTP">
-<code class="descname">get_HTTP</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.data.exceptions.InstanceNotFound.get_HTTP" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_HTTP</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; hydra_python_core.doc_writer.HydraError<a class="headerlink" href="#hydrus.data.exceptions.InstanceNotFound.get_HTTP" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the HTTP response for the Exception.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="hydrus.data.exceptions.InvalidSearchParameter">
+<em class="property">exception </em><code class="descclassname">hydrus.data.exceptions.</code><code class="descname">InvalidSearchParameter</code><span class="sig-paren">(</span><em>param: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#hydrus.data.exceptions.InvalidSearchParameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Error when client uses invalid query parameter for searching.</p>
+<dl class="method">
+<dt id="hydrus.data.exceptions.InvalidSearchParameter.get_HTTP">
+<code class="descname">get_HTTP</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; hydra_python_core.doc_writer.HydraError<a class="headerlink" href="#hydrus.data.exceptions.InvalidSearchParameter.get_HTTP" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the HTTP response for the Exception.</p>
 </dd></dl>
 
@@ -100,12 +926,12 @@
 
 <dl class="exception">
 <dt id="hydrus.data.exceptions.NotAbstractProperty">
-<em class="property">exception </em><code class="descclassname">hydrus.data.exceptions.</code><code class="descname">NotAbstractProperty</code><span class="sig-paren">(</span><em>type_</em><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.data.exceptions.NotAbstractProperty" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="descclassname">hydrus.data.exceptions.</code><code class="descname">NotAbstractProperty</code><span class="sig-paren">(</span><em>type_: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#hydrus.data.exceptions.NotAbstractProperty" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
 <p>Error when the property is not an Abstract property.</p>
 <dl class="method">
 <dt id="hydrus.data.exceptions.NotAbstractProperty.get_HTTP">
-<code class="descname">get_HTTP</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.data.exceptions.NotAbstractProperty.get_HTTP" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_HTTP</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; hydra_python_core.doc_writer.HydraError<a class="headerlink" href="#hydrus.data.exceptions.NotAbstractProperty.get_HTTP" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the HTTP response for the Exception.</p>
 </dd></dl>
 
@@ -113,12 +939,38 @@
 
 <dl class="exception">
 <dt id="hydrus.data.exceptions.NotInstanceProperty">
-<em class="property">exception </em><code class="descclassname">hydrus.data.exceptions.</code><code class="descname">NotInstanceProperty</code><span class="sig-paren">(</span><em>type_</em><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.data.exceptions.NotInstanceProperty" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="descclassname">hydrus.data.exceptions.</code><code class="descname">NotInstanceProperty</code><span class="sig-paren">(</span><em>type_: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#hydrus.data.exceptions.NotInstanceProperty" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
 <p>Error when the property is not an Instance property.</p>
 <dl class="method">
 <dt id="hydrus.data.exceptions.NotInstanceProperty.get_HTTP">
-<code class="descname">get_HTTP</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.data.exceptions.NotInstanceProperty.get_HTTP" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_HTTP</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; hydra_python_core.doc_writer.HydraError<a class="headerlink" href="#hydrus.data.exceptions.NotInstanceProperty.get_HTTP" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the HTTP response for the Exception.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="hydrus.data.exceptions.OffsetOutOfRange">
+<em class="property">exception </em><code class="descclassname">hydrus.data.exceptions.</code><code class="descname">OffsetOutOfRange</code><span class="sig-paren">(</span><em>offset: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#hydrus.data.exceptions.OffsetOutOfRange" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Error when the offset provided by client is out of range</p>
+<dl class="method">
+<dt id="hydrus.data.exceptions.OffsetOutOfRange.get_HTTP">
+<code class="descname">get_HTTP</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; hydra_python_core.doc_writer.HydraError<a class="headerlink" href="#hydrus.data.exceptions.OffsetOutOfRange.get_HTTP" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the HTTP response for the Exception.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="hydrus.data.exceptions.PageNotFound">
+<em class="property">exception </em><code class="descclassname">hydrus.data.exceptions.</code><code class="descname">PageNotFound</code><span class="sig-paren">(</span><em>page_id: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#hydrus.data.exceptions.PageNotFound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Error when the page is not found.</p>
+<dl class="method">
+<dt id="hydrus.data.exceptions.PageNotFound.get_HTTP">
+<code class="descname">get_HTTP</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; hydra_python_core.doc_writer.HydraError<a class="headerlink" href="#hydrus.data.exceptions.PageNotFound.get_HTTP" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the HTTP response for the Exception.</p>
 </dd></dl>
 
@@ -126,12 +978,12 @@
 
 <dl class="exception">
 <dt id="hydrus.data.exceptions.PropertyNotFound">
-<em class="property">exception </em><code class="descclassname">hydrus.data.exceptions.</code><code class="descname">PropertyNotFound</code><span class="sig-paren">(</span><em>type_</em><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.data.exceptions.PropertyNotFound" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="descclassname">hydrus.data.exceptions.</code><code class="descname">PropertyNotFound</code><span class="sig-paren">(</span><em>type_: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#hydrus.data.exceptions.PropertyNotFound" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
 <p>Error when the Property is not found.</p>
 <dl class="method">
 <dt id="hydrus.data.exceptions.PropertyNotFound.get_HTTP">
-<code class="descname">get_HTTP</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.data.exceptions.PropertyNotFound.get_HTTP" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_HTTP</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; hydra_python_core.doc_writer.HydraError<a class="headerlink" href="#hydrus.data.exceptions.PropertyNotFound.get_HTTP" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the HTTP response for the Exception.</p>
 </dd></dl>
 
@@ -139,12 +991,12 @@
 
 <dl class="exception">
 <dt id="hydrus.data.exceptions.UserExists">
-<em class="property">exception </em><code class="descclassname">hydrus.data.exceptions.</code><code class="descname">UserExists</code><span class="sig-paren">(</span><em>id_</em><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.data.exceptions.UserExists" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="descclassname">hydrus.data.exceptions.</code><code class="descname">UserExists</code><span class="sig-paren">(</span><em>id_: int</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#hydrus.data.exceptions.UserExists" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
 <p>Error when the User already exitst.</p>
 <dl class="method">
 <dt id="hydrus.data.exceptions.UserExists.get_HTTP">
-<code class="descname">get_HTTP</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.data.exceptions.UserExists.get_HTTP" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_HTTP</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; hydra_python_core.doc_writer.HydraError<a class="headerlink" href="#hydrus.data.exceptions.UserExists.get_HTTP" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the HTTP response for the Exception.</p>
 </dd></dl>
 
@@ -152,20 +1004,90 @@
 
 <dl class="exception">
 <dt id="hydrus.data.exceptions.UserNotFound">
-<em class="property">exception </em><code class="descclassname">hydrus.data.exceptions.</code><code class="descname">UserNotFound</code><span class="sig-paren">(</span><em>id_</em><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.data.exceptions.UserNotFound" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="descclassname">hydrus.data.exceptions.</code><code class="descname">UserNotFound</code><span class="sig-paren">(</span><em>id_: int</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#hydrus.data.exceptions.UserNotFound" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
 <p>Error when the User is not found.</p>
 <dl class="method">
 <dt id="hydrus.data.exceptions.UserNotFound.get_HTTP">
-<code class="descname">get_HTTP</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.data.exceptions.UserNotFound.get_HTTP" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_HTTP</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; hydra_python_core.doc_writer.HydraError<a class="headerlink" href="#hydrus.data.exceptions.UserNotFound.get_HTTP" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the HTTP response for the Exception.</p>
 </dd></dl>
 
 </dd></dl>
 
 </div>
-<div class="section" id="hydrus-data-user-module">
-<h2>hydrus.data.user module<a class="headerlink" href="#hydrus-data-user-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-hydrus.data.stale_records_cleanup">
+<span id="hydrus-data-stale-records-cleanup-module"></span><h2>hydrus.data.stale_records_cleanup module<a class="headerlink" href="#module-hydrus.data.stale_records_cleanup" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="hydrus.data.stale_records_cleanup.remove_stale_modification_records">
+<code class="descclassname">hydrus.data.stale_records_cleanup.</code><code class="descname">remove_stale_modification_records</code><span class="sig-paren">(</span><em>session: sqlalchemy.orm.scoping.scoped_session</em>, <em>stale_records_removal_interval: int = 900</em><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.data.stale_records_cleanup.remove_stale_modification_records" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove modification records which are older than last 1000 records.
+:param session: sqlalchemy session.
+:param stale_records_removal_interval: Interval time to run the removal job.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-hydrus.data.user">
+<span id="hydrus-data-user-module"></span><h2>hydrus.data.user module<a class="headerlink" href="#module-hydrus.data.user" title="Permalink to this headline">¶</a></h2>
+<p>File operations for User authorization.</p>
+<dl class="function">
+<dt id="hydrus.data.user.add_token">
+<code class="descclassname">hydrus.data.user.</code><code class="descname">add_token</code><span class="sig-paren">(</span><em>request: werkzeug.local.LocalProxy</em>, <em>session: sqlalchemy.orm.session.Session</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#hydrus.data.user.add_token" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new token for the user or return a
+valid existing token to the user.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.data.user.add_user">
+<code class="descclassname">hydrus.data.user.</code><code class="descname">add_user</code><span class="sig-paren">(</span><em>id_: int</em>, <em>paraphrase: str</em>, <em>session: sqlalchemy.orm.session.Session</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#hydrus.data.user.add_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add new users to the database.</p>
+<dl class="docutils">
+<dt>Raises:</dt>
+<dd>UserExits: If a user with <cite>id_</cite> already exists.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.data.user.authenticate_user">
+<code class="descclassname">hydrus.data.user.</code><code class="descname">authenticate_user</code><span class="sig-paren">(</span><em>id_: int</em>, <em>paraphrase: str</em>, <em>session: sqlalchemy.orm.session.Session</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#hydrus.data.user.authenticate_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Authenticate a user based on the ID and his paraphrase.</p>
+<dl class="docutils">
+<dt>Raises:</dt>
+<dd>UserNotFound: If a user with <cite>id_</cite> is not a valid/defined User</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.data.user.check_authorization">
+<code class="descclassname">hydrus.data.user.</code><code class="descname">check_authorization</code><span class="sig-paren">(</span><em>request: werkzeug.local.LocalProxy</em>, <em>session: sqlalchemy.orm.session.Session</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#hydrus.data.user.check_authorization" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the request object has the correct authorization.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.data.user.check_nonce">
+<code class="descclassname">hydrus.data.user.</code><code class="descname">check_nonce</code><span class="sig-paren">(</span><em>request: werkzeug.local.LocalProxy</em>, <em>session: sqlalchemy.orm.session.Session</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#hydrus.data.user.check_nonce" title="Permalink to this definition">¶</a></dt>
+<dd><p>check validity of nonce passed by the user.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.data.user.check_token">
+<code class="descclassname">hydrus.data.user.</code><code class="descname">check_token</code><span class="sig-paren">(</span><em>request: werkzeug.local.LocalProxy</em>, <em>session: sqlalchemy.orm.session.Session</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#hydrus.data.user.check_token" title="Permalink to this definition">¶</a></dt>
+<dd><p>check validity of the token passed by the user.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.data.user.create_nonce">
+<code class="descclassname">hydrus.data.user.</code><code class="descname">create_nonce</code><span class="sig-paren">(</span><em>session: sqlalchemy.orm.session.Session</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#hydrus.data.user.create_nonce" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a one time use nonce valid for a short time
+for user authentication.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.data.user.generate_basic_digest">
+<code class="descclassname">hydrus.data.user.</code><code class="descname">generate_basic_digest</code><span class="sig-paren">(</span><em>id_: int</em>, <em>paraphrase: str</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#hydrus.data.user.generate_basic_digest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the digest to be added to the HTTP Authorization header.</p>
+</dd></dl>
+
 </div>
 <div class="section" id="module-hydrus.data">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-hydrus.data" title="Permalink to this headline">¶</a></h2>
@@ -182,11 +1104,13 @@
   <ul>
 <li><a class="reference internal" href="#">hydrus.data package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#hydrus-data-crud-module">hydrus.data.crud module</a></li>
-<li><a class="reference internal" href="#hydrus-data-db-models-module">hydrus.data.db_models module</a></li>
-<li><a class="reference internal" href="#hydrus-data-doc-parse-module">hydrus.data.doc_parse module</a></li>
+<li><a class="reference internal" href="#module-hydrus.data.crud">hydrus.data.crud module</a></li>
+<li><a class="reference internal" href="#module-hydrus.data.crud_helpers">hydrus.data.crud_helpers module</a></li>
+<li><a class="reference internal" href="#module-hydrus.data.db_models">hydrus.data.db_models module</a></li>
+<li><a class="reference internal" href="#module-hydrus.data.doc_parse">hydrus.data.doc_parse module</a></li>
 <li><a class="reference internal" href="#module-hydrus.data.exceptions">hydrus.data.exceptions module</a></li>
-<li><a class="reference internal" href="#hydrus-data-user-module">hydrus.data.user module</a></li>
+<li><a class="reference internal" href="#module-hydrus.data.stale_records_cleanup">hydrus.data.stale_records_cleanup module</a></li>
+<li><a class="reference internal" href="#module-hydrus.data.user">hydrus.data.user module</a></li>
 <li><a class="reference internal" href="#module-hydrus.data">Module contents</a></li>
 </ul>
 </li>
@@ -196,8 +1120,8 @@
   <p class="topless"><a href="hydrus.html"
                         title="previous chapter">hydrus package</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="hydrus.data.legacy.html"
-                        title="next chapter">hydrus.data.legacy package</a></p>
+  <p class="topless"><a href="hydrus.samples.html"
+                        title="next chapter">hydrus.samples package</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -231,7 +1155,7 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="hydrus.data.legacy.html" title="hydrus.data.legacy package"
+          <a href="hydrus.samples.html" title="hydrus.samples package"
              >next</a> |</li>
         <li class="right" >
           <a href="hydrus.html" title="hydrus package"

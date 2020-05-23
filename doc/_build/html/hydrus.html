@@ -47,11 +47,1092 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="hydrus-app-module">
-<h2>hydrus.app module<a class="headerlink" href="#hydrus-app-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-hydrus.app">
+<span id="hydrus-app-module"></span><h2>hydrus.app module<a class="headerlink" href="#module-hydrus.app" title="Permalink to this headline">¶</a></h2>
+<p>Main route for the application</p>
 </div>
-<div class="section" id="hydrus-utils-module">
-<h2>hydrus.utils module<a class="headerlink" href="#hydrus-utils-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-hydrus.app_factory">
+<span id="hydrus-app-factory-module"></span><h2>hydrus.app_factory module<a class="headerlink" href="#module-hydrus.app_factory" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="hydrus.app_factory.app_factory">
+<code class="descclassname">hydrus.app_factory.</code><code class="descname">app_factory</code><span class="sig-paren">(</span><em>api_name: str = 'api'</em><span class="sig-paren">)</span> &#x2192; flask.app.Flask<a class="headerlink" href="#hydrus.app_factory.app_factory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an app object
+:param api_name : Name of the api
+:return : API with all routes directed at /[api_name].</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-hydrus.auth">
+<span id="hydrus-auth-module"></span><h2>hydrus.auth module<a class="headerlink" href="#module-hydrus.auth" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="hydrus.auth.authenticate">
+<code class="descclassname">hydrus.auth.</code><code class="descname">authenticate</code><span class="sig-paren">(</span><em>f</em><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.auth.authenticate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator for checking authentication of each request.
+Returns the authentication response if required, else
+continues with the request.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.auth.check_authentication_response">
+<code class="descclassname">hydrus.auth.</code><code class="descname">check_authentication_response</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Union[flask.wrappers.Response, NoneType]<a class="headerlink" href="#hydrus.auth.check_authentication_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the response as per the authentication requirements.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.auth.failed_authentication">
+<code class="descclassname">hydrus.auth.</code><code class="descname">failed_authentication</code><span class="sig-paren">(</span><em>incorrect: bool</em><span class="sig-paren">)</span> &#x2192; flask.wrappers.Response<a class="headerlink" href="#hydrus.auth.failed_authentication" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return failed authentication object.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.auth.token_response">
+<code class="descclassname">hydrus.auth.</code><code class="descname">token_response</code><span class="sig-paren">(</span><em>token: str</em><span class="sig-paren">)</span> &#x2192; flask.wrappers.Response<a class="headerlink" href="#hydrus.auth.token_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return succesful token generation object</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.auth.verify_user">
+<code class="descclassname">hydrus.auth.</code><code class="descname">verify_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Union[flask.wrappers.Response, NoneType]<a class="headerlink" href="#hydrus.auth.verify_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verify the credentials of the user and assign token.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-hydrus.conf">
+<span id="hydrus-conf-module"></span><h2>hydrus.conf module<a class="headerlink" href="#module-hydrus.conf" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Global variables are loaded or set here:</dt>
+<dd>DEBUG
+PORT
+API_NAME
+DB_URL
+APIDOC_OBJ
+HYDRUS_SERVER_URL
+FOUND_DOC</dd>
+</dl>
+<dl class="function">
+<dt id="hydrus.conf.get_apidoc_path">
+<code class="descclassname">hydrus.conf.</code><code class="descname">get_apidoc_path</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.conf.get_apidoc_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the path of the apidoc.</p>
+<p>:return - Tuple (path, boolean). path denotes path of the apidoc.
+If apidoc is not present at specified path then it falls back at sample apidoc.
+boolean is true if the apidoc is present at the specified path.
+boolean is false if sample apidoc is being used.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.conf.load_apidoc">
+<code class="descclassname">hydrus.conf.</code><code class="descname">load_apidoc</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.conf.load_apidoc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses docs of .jsonld, .py, .yaml format and loads apidoc from the given path.</p>
+<p>:param path - Path for the apidoc to be loaded
+:return - apidoc
+:Raises:</p>
+<blockquote>
+<div>FileNotFoundError: If the wrong path of hydradoc is specified.
+BaseException: If hydradoc is specified in wrong format.</div></blockquote>
+</dd></dl>
+
+</div>
+<div class="section" id="module-hydrus.helpers">
+<span id="hydrus-helpers-module"></span><h2>hydrus.helpers module<a class="headerlink" href="#module-hydrus.helpers" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="hydrus.helpers.add_iri_template">
+<code class="descclassname">hydrus.helpers.</code><code class="descname">add_iri_template</code><span class="sig-paren">(</span><em>path: str</em>, <em>API_NAME: str</em><span class="sig-paren">)</span> &#x2192; Dict[str, Any]<a class="headerlink" href="#hydrus.helpers.add_iri_template" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an IriTemplate.
+:param path: Path of the collection or the non-collection class.
+:param API_NAME: Name of API.
+:return: Hydra IriTemplate .</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.helpers.add_pagination_iri_mappings">
+<code class="descclassname">hydrus.helpers.</code><code class="descname">add_pagination_iri_mappings</code><span class="sig-paren">(</span><em>template: str, template_mapping: List[hydra_python_core.doc_writer.IriTemplateMapping]</em><span class="sig-paren">)</span> &#x2192; Tuple[str, List[hydra_python_core.doc_writer.IriTemplateMapping]]<a class="headerlink" href="#hydrus.helpers.add_pagination_iri_mappings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add various pagination related to variable to the IRI template and also adds mappings for them.
+:param template: IriTemplate string.
+:param template_mapping: List of template mappings.
+:return: Final IriTemplate string and related list of mappings.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.helpers.checkClassOp">
+<code class="descclassname">hydrus.helpers.</code><code class="descname">checkClassOp</code><span class="sig-paren">(</span><em>path: str</em>, <em>method: str</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#hydrus.helpers.checkClassOp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the Class supports the operation.
+:param path: Path of the collection or non-collection class.
+:param method: Method name.
+:return: True if the method is defined, false otherwise.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.helpers.checkEndpoint">
+<code class="descclassname">hydrus.helpers.</code><code class="descname">checkEndpoint</code><span class="sig-paren">(</span><em>method: str</em>, <em>path: str</em><span class="sig-paren">)</span> &#x2192; Dict[str, int]<a class="headerlink" href="#hydrus.helpers.checkEndpoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if endpoint and method is supported in the API.
+:param method: Method name
+:param path: Path of the collection or non-collection class
+:return : Dict with ‘method’ and ‘status’ key</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.helpers.check_required_props">
+<code class="descclassname">hydrus.helpers.</code><code class="descname">check_required_props</code><span class="sig-paren">(</span><em>path: str, obj: Dict[str, Any]</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#hydrus.helpers.check_required_props" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the object contains all required properties.
+:param path: Path of the collection or non-collection class.
+:param obj: object under check
+:return: True if the object contains all required properties</p>
+<blockquote>
+<div>False otherwise.</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.helpers.check_writeable_props">
+<code class="descclassname">hydrus.helpers.</code><code class="descname">check_writeable_props</code><span class="sig-paren">(</span><em>path: str, obj: Dict[str, Any]</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#hydrus.helpers.check_writeable_props" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check that the object only contains writeable fields(properties).
+:param path: Path of the collection or non-collection class.
+:param obj: object under check
+:return: True if the object only contains writeable properties</p>
+<blockquote>
+<div>False otherwise.</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.helpers.error_response">
+<code class="descclassname">hydrus.helpers.</code><code class="descname">error_response</code><span class="sig-paren">(</span><em>error: hydra_python_core.doc_writer.HydraError</em><span class="sig-paren">)</span> &#x2192; flask.wrappers.Response<a class="headerlink" href="#hydrus.helpers.error_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate the response if there is an error while performing any operation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>error</strong> (<em>HydraError</em>) – HydraError object which will help in generating response</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Error response with appropriate status code</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Response</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.helpers.finalize_response">
+<code class="descclassname">hydrus.helpers.</code><code class="descname">finalize_response</code><span class="sig-paren">(</span><em>path: str, obj: Dict[str, Any]</em><span class="sig-paren">)</span> &#x2192; Dict[str, Any]<a class="headerlink" href="#hydrus.helpers.finalize_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>finalize response objects by removing properties which are not readable and correcting path
+of nested objects.
+:param path: Path of the collection or non-collection class.
+:param obj: object being finalized
+:return: An object not containing any <cite>readable=False</cite> properties and having proper path</p>
+<blockquote>
+<div>of any nested object’s url.</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.helpers.generate_iri_mappings">
+<code class="descclassname">hydrus.helpers.</code><code class="descname">generate_iri_mappings</code><span class="sig-paren">(</span><em>path: str</em>, <em>template: str</em>, <em>skip_nested: bool = False</em>, <em>template_mapping: List[hydra_python_core.doc_writer.IriTemplateMapping] = []</em>, <em>parent_prop_name: str = None</em><span class="sig-paren">)</span> &#x2192; Tuple[str, List[hydra_python_core.doc_writer.IriTemplateMapping]]<a class="headerlink" href="#hydrus.helpers.generate_iri_mappings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate iri mappings to add to IriTemplate
+:param path: Path of the collection or non-collection class.
+:param template: IriTemplate string.
+:param skip_nested: To only add properties of the class_type class or</p>
+<blockquote>
+<div>its immediate children.</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>template_mapping</strong> – List of template mappings.</li>
+<li><strong>parent_prop_name</strong> – Property name according to parent object
+(only applies for nested properties)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Template string, list of template mappings and boolean showing whether
+to keep adding delimiter or not.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.helpers.getType">
+<code class="descclassname">hydrus.helpers.</code><code class="descname">getType</code><span class="sig-paren">(</span><em>class_path: str</em>, <em>method: str</em><span class="sig-paren">)</span> &#x2192; Any<a class="headerlink" href="#hydrus.helpers.getType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the &#64;type of object allowed for POST/PUT.
+:param class_path: path for the class
+:param method: Method name</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.helpers.get_context">
+<code class="descclassname">hydrus.helpers.</code><code class="descname">get_context</code><span class="sig-paren">(</span><em>category: str</em><span class="sig-paren">)</span> &#x2192; flask.wrappers.Response<a class="headerlink" href="#hydrus.helpers.get_context" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate the context for a given category.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>category</strong> (<em>str</em>) – The category of class for which context is required</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Response with context</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Response</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.helpers.get_link_props">
+<code class="descclassname">hydrus.helpers.</code><code class="descname">get_link_props</code><span class="sig-paren">(</span><em>path: str</em>, <em>object_</em><span class="sig-paren">)</span> &#x2192; Tuple[Dict[str, Any], bool]<a class="headerlink" href="#hydrus.helpers.get_link_props" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get dict of all hydra_link properties of a class.
+:param path: Path of the collection or non-collection class.
+:param <a href="#id1"><span class="problematic" id="id2">object_</span></a>: Object being inserted/updated.
+:return: Tuple with one elements as Dict with property_title as key and</p>
+<blockquote>
+<div>instance_id(for collection class) or class_name(for non-collection class) as value,
+second element represents boolean representing validity of the link.</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.helpers.get_link_props_for_multiple_objects">
+<code class="descclassname">hydrus.helpers.</code><code class="descname">get_link_props_for_multiple_objects</code><span class="sig-paren">(</span><em>path: str, object_list: List[Dict[str, Any]]</em><span class="sig-paren">)</span> &#x2192; Tuple[List[Dict[str, Any]], bool]<a class="headerlink" href="#hydrus.helpers.get_link_props_for_multiple_objects" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get link_props of multiple objects.
+:param path: Path of the collection or non-collection class.
+:param object_list: List of objects being inserted.
+:return: List of link properties processed with the help of get_link_props.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.helpers.get_nested_class_path">
+<code class="descclassname">hydrus.helpers.</code><code class="descname">get_nested_class_path</code><span class="sig-paren">(</span><em>class_type: str</em><span class="sig-paren">)</span> &#x2192; Tuple[str, bool]<a class="headerlink" href="#hydrus.helpers.get_nested_class_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the path of class
+:param class_type: class name whose path is needed
+:return: Tuple, where the first element is the path string and</p>
+<blockquote>
+<div>the second element is a boolean, True if the class is a collection class
+False otherwise.</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.helpers.hydrafy">
+<code class="descclassname">hydrus.helpers.</code><code class="descname">hydrafy</code><span class="sig-paren">(</span><em>object_: Dict[str, Any], path: Union[str, NoneType]</em><span class="sig-paren">)</span> &#x2192; Dict[str, Any]<a class="headerlink" href="#hydrus.helpers.hydrafy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add hydra context to objects.
+:param <a href="#id3"><span class="problematic" id="id4">object_</span></a> : Object.
+:param path : Path of the collection or non-collection class .
+:return : object with hydra context</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.helpers.send_sync_update">
+<code class="descclassname">hydrus.helpers.</code><code class="descname">send_sync_update</code><span class="sig-paren">(</span><em>socketio</em>, <em>new_job_id: int</em>, <em>last_job_id: str</em>, <em>method: str</em>, <em>resource_url: str</em><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.helpers.send_sync_update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sends synchronization update to all connected clients.
+:param socketio: socketio connection.
+:param new_job_id: Job id of the new modification(update).
+:param last_job_id: Job id of the last(most recent) modification until this new one.
+:param method: Method type of the operation.
+:param resource_url: URL of resource which needs to be synchronized.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.helpers.send_update">
+<code class="descclassname">hydrus.helpers.</code><code class="descname">send_update</code><span class="sig-paren">(</span><em>method: str</em>, <em>path: str</em><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.helpers.send_update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handler for sending synchronization update to all connected clients.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>method</strong> (<em>str</em>) – Method type of the operation.</li>
+<li><strong>path</strong> (<em>str</em>) – Path to the Item collection to which update is made.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.helpers.set_response_headers">
+<code class="descclassname">hydrus.helpers.</code><code class="descname">set_response_headers</code><span class="sig-paren">(</span><em>resp: flask.wrappers.Response</em>, <em>ct: str = 'application/ld+json'</em>, <em>headers: List[Dict[str</em>, <em>Any]] = []</em>, <em>status_code: int = 200</em><span class="sig-paren">)</span> &#x2192; flask.wrappers.Response<a class="headerlink" href="#hydrus.helpers.set_response_headers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the response headers.
+:param resp: Response.
+:param ct: Content-type default “application/ld+json”.
+:param headers: List of objects.
+:param status_code: status code default 200.
+:return: Response with headers.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.helpers.type_match">
+<code class="descclassname">hydrus.helpers.</code><code class="descname">type_match</code><span class="sig-paren">(</span><em>object_: List[Dict[str, Any]], obj_type: str</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#hydrus.helpers.type_match" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if the object type matches for every object in list.
+:param <a href="#id5"><span class="problematic" id="id6">object_</span></a>: List of objects
+:param obj_type: The required object type
+:return: True if all object of list have the right type</p>
+<blockquote>
+<div>False otherwise</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.helpers.validObject">
+<code class="descclassname">hydrus.helpers.</code><code class="descname">validObject</code><span class="sig-paren">(</span><em>object_: Dict[str, Any]</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#hydrus.helpers.validObject" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Check if the Dict passed in POST is of valid format or not.</dt>
+<dd>(if there’s an “&#64;type” key in the dict)</dd>
+</dl>
+<p>:param <a href="#id7"><span class="problematic" id="id8">object_</span></a> - Object to be checked
+:return : &lt;bool&gt; True if Object has “&#64;type” key</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.helpers.validObjectList">
+<code class="descclassname">hydrus.helpers.</code><code class="descname">validObjectList</code><span class="sig-paren">(</span><em>objects_: List[Dict[str, Any]]</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#hydrus.helpers.validObjectList" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Check if the List of Dicts passed are of the valid format or not.</dt>
+<dd>(if there’s an “&#64;type” key in the dict)</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>objects</strong> – Object to be checked</td>
+</tr>
+</tbody>
+</table>
+<p>:return : &lt;bool&gt; True if all the Object in the List of Dicts have “&#64;type” key</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.helpers.validate_object">
+<code class="descclassname">hydrus.helpers.</code><code class="descname">validate_object</code><span class="sig-paren">(</span><em>object_: Dict[str, Any], obj_type: str, class_path: str</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#hydrus.helpers.validate_object" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the object dict passed in POST can be inserted/updated
+in database.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>object</strong> – Object to be checked</li>
+<li><strong>obj_type</strong> – The required object type</li>
+<li><strong>class_path</strong> – Path of the class</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">True if the object is completely valid</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-hydrus.item_collection_helpers">
+<span id="hydrus-item-collection-helpers-module"></span><h2>hydrus.item_collection_helpers module<a class="headerlink" href="#module-hydrus.item_collection_helpers" title="Permalink to this headline">¶</a></h2>
+<p>Helper functions for Item Collection</p>
+<dl class="function">
+<dt id="hydrus.item_collection_helpers.item_collection_delete_response">
+<code class="descclassname">hydrus.item_collection_helpers.</code><code class="descname">item_collection_delete_response</code><span class="sig-paren">(</span><em>path: str</em><span class="sig-paren">)</span> &#x2192; flask.wrappers.Response<a class="headerlink" href="#hydrus.item_collection_helpers.item_collection_delete_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles DELETE operation on item collection classes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<em>str</em>) – Path for Item Collection</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Appropriate response for the DELETE operation.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Response</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.item_collection_helpers.item_collection_get_response">
+<code class="descclassname">hydrus.item_collection_helpers.</code><code class="descname">item_collection_get_response</code><span class="sig-paren">(</span><em>path: str</em><span class="sig-paren">)</span> &#x2192; flask.wrappers.Response<a class="headerlink" href="#hydrus.item_collection_helpers.item_collection_get_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles GET operation on item collection classes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<em>str</em>) – Path for Item Collection</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Appropriate response for the GET operation.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Response</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.item_collection_helpers.item_collection_post_response">
+<code class="descclassname">hydrus.item_collection_helpers.</code><code class="descname">item_collection_post_response</code><span class="sig-paren">(</span><em>path: str</em><span class="sig-paren">)</span> &#x2192; flask.wrappers.Response<a class="headerlink" href="#hydrus.item_collection_helpers.item_collection_post_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles POST operation on item collection classes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<em>str</em>) – Path for Item Collection</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Appropriate response for the POST operation.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Response</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.item_collection_helpers.item_collection_put_response">
+<code class="descclassname">hydrus.item_collection_helpers.</code><code class="descname">item_collection_put_response</code><span class="sig-paren">(</span><em>path: str</em><span class="sig-paren">)</span> &#x2192; flask.wrappers.Response<a class="headerlink" href="#hydrus.item_collection_helpers.item_collection_put_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles PUT operation on item collection classes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<em>str</em>) – Path for Item Collection</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Appropriate response for the PUT operation.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Response</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-hydrus.itemhelpers">
+<span id="hydrus-itemhelpers-module"></span><h2>hydrus.itemhelpers module<a class="headerlink" href="#module-hydrus.itemhelpers" title="Permalink to this headline">¶</a></h2>
+<p>Helper functions for items</p>
+<dl class="function">
+<dt id="hydrus.itemhelpers.items_delete_check_support">
+<code class="descclassname">hydrus.itemhelpers.</code><code class="descname">items_delete_check_support</code><span class="sig-paren">(</span><em>id_</em>, <em>class_type</em>, <em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.itemhelpers.items_delete_check_support" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if class_type supports PUT operation</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.itemhelpers.items_get_check_support">
+<code class="descclassname">hydrus.itemhelpers.</code><code class="descname">items_get_check_support</code><span class="sig-paren">(</span><em>id_</em>, <em>class_type</em>, <em>class_path</em>, <em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.itemhelpers.items_get_check_support" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if class_type supports GET operation</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.itemhelpers.items_post_check_support">
+<code class="descclassname">hydrus.itemhelpers.</code><code class="descname">items_post_check_support</code><span class="sig-paren">(</span><em>id_</em>, <em>object_</em>, <em>class_path</em>, <em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.itemhelpers.items_post_check_support" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if class_type supports POST operation</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.itemhelpers.items_put_check_support">
+<code class="descclassname">hydrus.itemhelpers.</code><code class="descname">items_put_check_support</code><span class="sig-paren">(</span><em>id_</em>, <em>class_path</em>, <em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.itemhelpers.items_put_check_support" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if class_type supports PUT operation</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-hydrus.items_helpers">
+<span id="hydrus-items-helpers-module"></span><h2>hydrus.items_helpers module<a class="headerlink" href="#module-hydrus.items_helpers" title="Permalink to this headline">¶</a></h2>
+<p>Helper functions for Item Collection</p>
+<dl class="function">
+<dt id="hydrus.items_helpers.items_delete_response">
+<code class="descclassname">hydrus.items_helpers.</code><code class="descname">items_delete_response</code><span class="sig-paren">(</span><em>path: str</em>, <em>int_list=''</em><span class="sig-paren">)</span> &#x2192; flask.wrappers.Response<a class="headerlink" href="#hydrus.items_helpers.items_delete_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles DELETE operation to insert multiple items.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>path</strong> (<em>str</em>) – Path for Item Collection</li>
+<li><strong>int_list</strong> (<em>List</em>) – Optional String containing ‘,’ separated ID’s</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Appropriate response for the DELETE operation on multiple items.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Response</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.items_helpers.items_put_response">
+<code class="descclassname">hydrus.items_helpers.</code><code class="descname">items_put_response</code><span class="sig-paren">(</span><em>path: str</em>, <em>int_list=''</em><span class="sig-paren">)</span> &#x2192; flask.wrappers.Response<a class="headerlink" href="#hydrus.items_helpers.items_put_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles PUT operation to insert multiple items.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>path</strong> (<em>str</em>) – Path for Item Collection</li>
+<li><strong>int_list</strong> (<em>List</em>) – Optional String containing ‘,’ separated ID’s</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Appropriate response for the PUT operation on multiple items.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Response</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-hydrus.resources">
+<span id="hydrus-resources-module"></span><h2>hydrus.resources module<a class="headerlink" href="#module-hydrus.resources" title="Permalink to this headline">¶</a></h2>
+<p>Imports :
+flask.json.jsonify : Turns the JSON output into a Response object with the
+application/json mimetype Ref- <a class="reference external" href="http://flask.pocoo.org/docs/0.12/api">http://flask.pocoo.org/docs/0.12/api</a>
+flask.request : The request object used by default in Flask.
+Remembers the matched endpoint and view arguments.
+Ref - <a class="reference external" href="http://flask.pocoo.org/docs/0.12/api">http://flask.pocoo.org/docs/0.12/api</a>
+flask.abort : Raises an HTTPException for the given status code or WSGI
+application: Ref - <a class="reference external" href="http://flask.pocoo.org/docs/0.12/api">http://flask.pocoo.org/docs/0.12/api</a>
+flask_restful.Resource : Represents an abstract RESTful resource.
+Ref - <a class="reference external" href="http://flask-restful.readthedocs.io/en/latest/api.html">http://flask-restful.readthedocs.io/en/latest/api.html</a>
+hydrus.data.crud : Function/Class to perform basic CRUD operations for the server
+hydrus.auth.authenticate : Decorator for checking authentication of each request
+hydrus.utils.get_session : Gets the database session for the server
+hydrus.utils.get_doc : Function which gets the server API documentation
+hydrus.utils.get_api_name : Function which gets the server API name
+hydrus.utils.get_hydrus_server_url : Function the gets the server URL
+hydrus.utils.get_authentication : Function that checks whether API needs to be
+authenticated or not
+hydrus.utils.get_collections_and_parsed_classes: Function that returns
+all the collections and parsed classes in the API documentation</p>
+<dl class="class">
+<dt id="hydrus.resources.Contexts">
+<em class="property">class </em><code class="descclassname">hydrus.resources.</code><code class="descname">Contexts</code><a class="headerlink" href="#hydrus.resources.Contexts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_restful.Resource</span></code></p>
+<p>Dynamically generated contexts.</p>
+<dl class="attribute">
+<dt id="hydrus.resources.Contexts.endpoint">
+<code class="descname">endpoint</code><em class="property"> = 'contexts'</em><a class="headerlink" href="#hydrus.resources.Contexts.endpoint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="hydrus.resources.Contexts.get">
+<code class="descname">get</code><span class="sig-paren">(</span><em>category: str</em><span class="sig-paren">)</span> &#x2192; flask.wrappers.Response<a class="headerlink" href="#hydrus.resources.Contexts.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the context for the specified class.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="hydrus.resources.Contexts.mediatypes">
+<code class="descname">mediatypes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.resources.Contexts.mediatypes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.resources.Contexts.methods">
+<code class="descname">methods</code><em class="property"> = {'GET'}</em><a class="headerlink" href="#hydrus.resources.Contexts.methods" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="hydrus.resources.Entrypoint">
+<em class="property">class </em><code class="descclassname">hydrus.resources.</code><code class="descname">Entrypoint</code><a class="headerlink" href="#hydrus.resources.Entrypoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_restful.Resource</span></code></p>
+<p>Hydra EntryPoint.</p>
+<dl class="attribute">
+<dt id="hydrus.resources.Entrypoint.endpoint">
+<code class="descname">endpoint</code><em class="property"> = 'main_entrypoint'</em><a class="headerlink" href="#hydrus.resources.Entrypoint.endpoint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="hydrus.resources.Entrypoint.get">
+<code class="descname">get</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; flask.wrappers.Response<a class="headerlink" href="#hydrus.resources.Entrypoint.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return application main Entrypoint.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="hydrus.resources.Entrypoint.mediatypes">
+<code class="descname">mediatypes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.resources.Entrypoint.mediatypes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.resources.Entrypoint.methods">
+<code class="descname">methods</code><em class="property"> = {'GET'}</em><a class="headerlink" href="#hydrus.resources.Entrypoint.methods" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="hydrus.resources.Index">
+<em class="property">class </em><code class="descclassname">hydrus.resources.</code><code class="descname">Index</code><a class="headerlink" href="#hydrus.resources.Index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_restful.Resource</span></code></p>
+<p>Class for the EntryPoint.</p>
+<dl class="attribute">
+<dt id="hydrus.resources.Index.endpoint">
+<code class="descname">endpoint</code><em class="property"> = 'api'</em><a class="headerlink" href="#hydrus.resources.Index.endpoint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="hydrus.resources.Index.get">
+<code class="descname">get</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; flask.wrappers.Response<a class="headerlink" href="#hydrus.resources.Index.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return main entrypoint for the api.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="hydrus.resources.Index.mediatypes">
+<code class="descname">mediatypes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.resources.Index.mediatypes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.resources.Index.methods">
+<code class="descname">methods</code><em class="property"> = {'GET'}</em><a class="headerlink" href="#hydrus.resources.Index.methods" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="hydrus.resources.Item">
+<em class="property">class </em><code class="descclassname">hydrus.resources.</code><code class="descname">Item</code><a class="headerlink" href="#hydrus.resources.Item" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_restful.Resource</span></code></p>
+<p>Handles all operations(GET, POST, PATCH, DELETE) on Items
+(item can be anything depending upon the vocabulary).</p>
+<dl class="method">
+<dt id="hydrus.resources.Item.delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><em>id_: str</em>, <em>path: str</em><span class="sig-paren">)</span> &#x2192; flask.wrappers.Response<a class="headerlink" href="#hydrus.resources.Item.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete object with id=id_ from database.
+:param <a href="#id9"><span class="problematic" id="id10">id_</span></a> - ID of Item to be deleted
+:param path - Path for Item type( Specified in APIDoc &#64;id) to be deleted</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.resources.Item.endpoint">
+<code class="descname">endpoint</code><em class="property"> = 'item'</em><a class="headerlink" href="#hydrus.resources.Item.endpoint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="hydrus.resources.Item.get">
+<code class="descname">get</code><span class="sig-paren">(</span><em>id_: str</em>, <em>path: str</em><span class="sig-paren">)</span> &#x2192; flask.wrappers.Response<a class="headerlink" href="#hydrus.resources.Item.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>GET object with id = <a href="#id11"><span class="problematic" id="id12">id_</span></a> from the database.
+:param <a href="#id13"><span class="problematic" id="id14">id_</span></a> : Item ID
+:param path : Path for Item ( Specified in APIDoc &#64;id)
+:return : object with id=id_</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="hydrus.resources.Item.mediatypes">
+<code class="descname">mediatypes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.resources.Item.mediatypes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.resources.Item.methods">
+<code class="descname">methods</code><em class="property"> = {'POST', 'GET', 'DELETE', 'PUT'}</em><a class="headerlink" href="#hydrus.resources.Item.methods" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="hydrus.resources.Item.post">
+<code class="descname">post</code><span class="sig-paren">(</span><em>id_: str</em>, <em>path: str</em><span class="sig-paren">)</span> &#x2192; flask.wrappers.Response<a class="headerlink" href="#hydrus.resources.Item.post" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update object of type&lt;path&gt; at ID&lt;<a href="#id15"><span class="problematic" id="id16">id_</span></a>&gt; with new <a href="#id17"><span class="problematic" id="id18">object_</span></a> using HTTP POST.
+:param <a href="#id19"><span class="problematic" id="id20">id_</span></a> - ID of Item to be updated
+:param path - Path for Item type( Specified in APIDoc &#64;id)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="hydrus.resources.Item.put">
+<code class="descname">put</code><span class="sig-paren">(</span><em>id_: str</em>, <em>path: str</em><span class="sig-paren">)</span> &#x2192; flask.wrappers.Response<a class="headerlink" href="#hydrus.resources.Item.put" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add new <a href="#id21"><span class="problematic" id="id22">object_</span></a> optional &lt;<a href="#id23"><span class="problematic" id="id24">id_</span></a>&gt; parameter using HTTP PUT.
+:param <a href="#id25"><span class="problematic" id="id26">id_</span></a> - ID of Item to be updated
+:param path - Path for Item type( Specified in APIDoc &#64;id) to be updated</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="hydrus.resources.ItemCollection">
+<em class="property">class </em><code class="descclassname">hydrus.resources.</code><code class="descname">ItemCollection</code><a class="headerlink" href="#hydrus.resources.ItemCollection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_restful.Resource</span></code></p>
+<p>Handle operation related to ItemCollection (a collection of items).</p>
+<dl class="method">
+<dt id="hydrus.resources.ItemCollection.delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><em>path: str</em><span class="sig-paren">)</span> &#x2192; flask.wrappers.Response<a class="headerlink" href="#hydrus.resources.ItemCollection.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method executed for DELETE requests.
+Used to delete a non-collection class.
+:param path - Path for Item ( Specified in APIDoc &#64;id)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.resources.ItemCollection.endpoint">
+<code class="descname">endpoint</code><em class="property"> = 'item_collection'</em><a class="headerlink" href="#hydrus.resources.ItemCollection.endpoint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="hydrus.resources.ItemCollection.get">
+<code class="descname">get</code><span class="sig-paren">(</span><em>path: str</em><span class="sig-paren">)</span> &#x2192; flask.wrappers.Response<a class="headerlink" href="#hydrus.resources.ItemCollection.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve a collection of items from the database.
+:param path : Path of the Collection
+:return : collection of items</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="hydrus.resources.ItemCollection.mediatypes">
+<code class="descname">mediatypes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.resources.ItemCollection.mediatypes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.resources.ItemCollection.methods">
+<code class="descname">methods</code><em class="property"> = {'POST', 'GET', 'DELETE', 'PUT'}</em><a class="headerlink" href="#hydrus.resources.ItemCollection.methods" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="hydrus.resources.ItemCollection.post">
+<code class="descname">post</code><span class="sig-paren">(</span><em>path: str</em><span class="sig-paren">)</span> &#x2192; flask.wrappers.Response<a class="headerlink" href="#hydrus.resources.ItemCollection.post" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method executed for POST requests.
+Used to update a non-collection class.
+:param path - Path for Item type ( Specified in APIDoc &#64;id)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="hydrus.resources.ItemCollection.put">
+<code class="descname">put</code><span class="sig-paren">(</span><em>path: str</em><span class="sig-paren">)</span> &#x2192; flask.wrappers.Response<a class="headerlink" href="#hydrus.resources.ItemCollection.put" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method executed for PUT requests.
+Used to add an item to a collection
+:param path - Path for Item type ( Specified in APIDoc &#64;id)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="hydrus.resources.Items">
+<em class="property">class </em><code class="descclassname">hydrus.resources.</code><code class="descname">Items</code><a class="headerlink" href="#hydrus.resources.Items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_restful.Resource</span></code></p>
+<dl class="method">
+<dt id="hydrus.resources.Items.delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><em>path</em>, <em>int_list</em><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.resources.Items.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>To delete multiple objects
+:param path: endpoints
+:param int_list: Optional String containing ‘,’ separated ID’s
+:return:</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.resources.Items.endpoint">
+<code class="descname">endpoint</code><em class="property"> = 'items'</em><a class="headerlink" href="#hydrus.resources.Items.endpoint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="hydrus.resources.Items.mediatypes">
+<code class="descname">mediatypes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.resources.Items.mediatypes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.resources.Items.methods">
+<code class="descname">methods</code><em class="property"> = {'DELETE', 'PUT'}</em><a class="headerlink" href="#hydrus.resources.Items.methods" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="hydrus.resources.Items.put">
+<code class="descname">put</code><span class="sig-paren">(</span><em>path</em>, <em>int_list=''</em><span class="sig-paren">)</span> &#x2192; flask.wrappers.Response<a class="headerlink" href="#hydrus.resources.Items.put" title="Permalink to this definition">¶</a></dt>
+<dd><p>To insert multiple objects into the database
+:param path: endpoint
+:param int_list: Optional String containing ‘,’ separated ID’s
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="hydrus.resources.Vocab">
+<em class="property">class </em><code class="descclassname">hydrus.resources.</code><code class="descname">Vocab</code><a class="headerlink" href="#hydrus.resources.Vocab" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_restful.Resource</span></code></p>
+<p>Vocabulary for Hydra.</p>
+<dl class="attribute">
+<dt id="hydrus.resources.Vocab.endpoint">
+<code class="descname">endpoint</code><em class="property"> = 'vocab'</em><a class="headerlink" href="#hydrus.resources.Vocab.endpoint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="hydrus.resources.Vocab.get">
+<code class="descname">get</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; flask.wrappers.Response<a class="headerlink" href="#hydrus.resources.Vocab.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the main hydra vocab.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="hydrus.resources.Vocab.mediatypes">
+<code class="descname">mediatypes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.resources.Vocab.mediatypes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="hydrus.resources.Vocab.methods">
+<code class="descname">methods</code><em class="property"> = {'GET'}</em><a class="headerlink" href="#hydrus.resources.Vocab.methods" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-hydrus.socketio_factory">
+<span id="hydrus-socketio-factory-module"></span><h2>hydrus.socketio_factory module<a class="headerlink" href="#module-hydrus.socketio_factory" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="hydrus.socketio_factory.create_socket">
+<code class="descclassname">hydrus.socketio_factory.</code><code class="descname">create_socket</code><span class="sig-paren">(</span><em>app: flask.app.Flask</em>, <em>session: sqlalchemy.orm.scoping.scoped_session</em><span class="sig-paren">)</span> &#x2192; flask_socketio.SocketIO<a class="headerlink" href="#hydrus.socketio_factory.create_socket" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-hydrus.sync_namespace">
+<span id="hydrus-sync-namespace-module"></span><h2>hydrus.sync_namespace module<a class="headerlink" href="#module-hydrus.sync_namespace" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="hydrus.sync_namespace.SyncNamespace">
+<em class="property">class </em><code class="descclassname">hydrus.sync_namespace.</code><code class="descname">SyncNamespace</code><span class="sig-paren">(</span><em>namespace</em>, <em>db_session</em><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.sync_namespace.SyncNamespace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_socketio.namespace.Namespace</span></code></p>
+<dl class="method">
+<dt id="hydrus.sync_namespace.SyncNamespace.on_connect">
+<code class="descname">on_connect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.sync_namespace.SyncNamespace.on_connect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="hydrus.sync_namespace.SyncNamespace.on_disconnect">
+<code class="descname">on_disconnect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.sync_namespace.SyncNamespace.on_disconnect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="hydrus.sync_namespace.SyncNamespace.on_get_modification_table_diff">
+<code class="descname">on_get_modification_table_diff</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.sync_namespace.SyncNamespace.on_get_modification_table_diff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get modification table diff and emit it to the client.
+:param data: Dict with ‘agent_job_id’ key.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="hydrus.sync_namespace.SyncNamespace.on_reconnect">
+<code class="descname">on_reconnect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.sync_namespace.SyncNamespace.on_reconnect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-hydrus.utils">
+<span id="hydrus-utils-module"></span><h2>hydrus.utils module<a class="headerlink" href="#module-hydrus.utils" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="pluggable-utilities-for-hydrus">
+<h3>Pluggable utilities for Hydrus.<a class="headerlink" href="#pluggable-utilities-for-hydrus" title="Permalink to this headline">¶</a></h3>
+<p>Imports :
+contextlib.contextmanager : This function is a decorator that can be used to
+define a factory function for with statement context managers, without needing
+to create a class or separate __enter__() and __exit__() methods.
+Ref- <a class="reference external" href="https://docs.python.org/2/library/contextlib.html#contextlib.contextmanager">https://docs.python.org/2/library/contextlib.html#contextlib.contextmanager</a>
+flask.appcontext_pushed : Signal is sent when an application context is pushed.
+The sender is the application.
+Ref- <a class="reference external" href="http://flask.pocoo.org/docs/0.12/api/#flask.appcontext_pushed">http://flask.pocoo.org/docs/0.12/api/#flask.appcontext_pushed</a>
+Ref- <a class="reference external" href="https://speakerdeck.com/mitsuhiko/advanced-flask-patterns-1">https://speakerdeck.com/mitsuhiko/advanced-flask-patterns-1</a>
+flask.g : Used to attach values to global variables
+doc_writer_sample : Sample script used to create Hydra APIDocumentation
+hydra_python_core.engine : An SQLalchemy DB engine
+sqlalchemy.orm.sessionmaker : Used to create a SQLalchemy Session
+sqlalchemy.orm.session.Session : SQLalchemy Session class
+Ref- <a class="reference external" href="http://docs.sqlalchemy.org/en/latest/orm/session_basics.html">http://docs.sqlalchemy.org/en/latest/orm/session_basics.html</a>
+hydra_python_core.doc_writer.HydraDoc : Class for Hydra Documentation</p>
+<dl class="function">
+<dt id="hydrus.utils.get_api_name">
+<code class="descclassname">hydrus.utils.</code><code class="descname">get_api_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#hydrus.utils.get_api_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the server API name.
+Returns an sets “api” as api_name if not found.
+:return api_name : API/Server name or EntryPoint</p>
+<blockquote>
+<div>&lt;str&gt;</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.utils.get_authentication">
+<code class="descclassname">hydrus.utils.</code><code class="descname">get_authentication</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#hydrus.utils.get_authentication" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check whether API needs to be authenticated or not.
+Return and sets False if not found.
+:return authentication : Bool. API Auth needed or not</p>
+<blockquote>
+<div>&lt;bool&gt;</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.utils.get_collections_and_parsed_classes">
+<code class="descclassname">hydrus.utils.</code><code class="descname">get_collections_and_parsed_classes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hydrus.utils.get_collections_and_parsed_classes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all the collections and parsed classes from
+the API doc.
+:return collections, parsed_classes</p>
+<blockquote>
+<div>&lt;tuple&gt;</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.utils.get_doc">
+<code class="descclassname">hydrus.utils.</code><code class="descname">get_doc</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; hydra_python_core.doc_writer.HydraDoc<a class="headerlink" href="#hydrus.utils.get_doc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the server API Documentation.
+Returns and sets doc_writer_sample.api_doc if not found.
+:return apidoc : Hydra Documentation object</p>
+<blockquote>
+<div>&lt;hydra_python_core.doc_writer.HydraDoc&gt;</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.utils.get_hydrus_server_url">
+<code class="descclassname">hydrus.utils.</code><code class="descname">get_hydrus_server_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#hydrus.utils.get_hydrus_server_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the server URL.
+Returns and sets “<a class="reference external" href="http://localhost/">http://localhost/</a>” if not found.
+:return hydrus_server_url : Server URL</p>
+<blockquote>
+<div>&lt;str&gt;</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.utils.get_page_size">
+<code class="descclassname">hydrus.utils.</code><code class="descname">get_page_size</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#hydrus.utils.get_page_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the page_size of a page-view.
+:return page_size : Number of maximum elements a page view can contain.</p>
+<blockquote>
+<div>&lt;int&gt;</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.utils.get_pagination">
+<code class="descclassname">hydrus.utils.</code><code class="descname">get_pagination</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#hydrus.utils.get_pagination" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the pagination status(Enable/Disable).
+:return paginate : Pagination enabled or not</p>
+<blockquote>
+<div>&lt;bool&gt;</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.utils.get_session">
+<code class="descclassname">hydrus.utils.</code><code class="descname">get_session</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; sqlalchemy.orm.scoping.scoped_session<a class="headerlink" href="#hydrus.utils.get_session" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the Database Session from g.
+Returns and sets a default Session if not found
+:return session : SQLalchemy Session object</p>
+<blockquote>
+<div>&lt;sqlalchemy.orm.scoped_session&gt;</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.utils.get_token">
+<code class="descclassname">hydrus.utils.</code><code class="descname">get_token</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#hydrus.utils.get_token" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check wether API needs to be authenticated or not.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.utils.set_api_name">
+<code class="descclassname">hydrus.utils.</code><code class="descname">set_api_name</code><span class="sig-paren">(</span><em>application: flask.app.Flask</em>, <em>api_name: str</em><span class="sig-paren">)</span> &#x2192; Iterator<a class="headerlink" href="#hydrus.utils.set_api_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the server name or EntryPoint for the app (before it is run in main.py).
+:param application: Flask app object</p>
+<blockquote>
+<div>&lt;flask.app.Flask&gt;</div></blockquote>
+<dl class="docutils">
+<dt>:param api_name <span class="classifier-delimiter">:</span> <span class="classifier">API/Server name or EntryPoint</span></dt>
+<dd>&lt;str&gt;</dd>
+<dt>Raises:</dt>
+<dd>TypeError: If <cite>api_name</cite> is not a string.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.utils.set_authentication">
+<code class="descclassname">hydrus.utils.</code><code class="descname">set_authentication</code><span class="sig-paren">(</span><em>application: flask.app.Flask</em>, <em>authentication: bool</em><span class="sig-paren">)</span> &#x2192; Iterator<a class="headerlink" href="#hydrus.utils.set_authentication" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the whether API needs to be authenticated or not (before it is run in main.py).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>application</strong> – Flask app object
+&lt;flask.app.Flask&gt;</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>:param authentication <span class="classifier-delimiter">:</span> <span class="classifier">Bool. API Auth needed or not</span></dt>
+<dd>&lt;bool&gt;</dd>
+<dt>Raises:</dt>
+<dd>TypeError: If <cite>authentication</cite> is not a boolean value.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.utils.set_doc">
+<code class="descclassname">hydrus.utils.</code><code class="descname">set_doc</code><span class="sig-paren">(</span><em>application: flask.app.Flask</em>, <em>APIDOC: hydra_python_core.doc_writer.HydraDoc</em><span class="sig-paren">)</span> &#x2192; Iterator<a class="headerlink" href="#hydrus.utils.set_doc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the API Documentation for the app (before it is run in main.py).
+:param application: Flask app object</p>
+<blockquote>
+<div>&lt;flask.app.Flask&gt;</div></blockquote>
+<dl class="docutils">
+<dt>:param APIDOC <span class="classifier-delimiter">:</span> <span class="classifier">Hydra Documentation object</span></dt>
+<dd>&lt;hydra_python_core.doc_writer.HydraDoc&gt;</dd>
+<dt>Raises:</dt>
+<dd>TypeError: If <cite>APIDOC</cite> is not an instance of <cite>HydraDoc</cite>.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.utils.set_hydrus_server_url">
+<code class="descclassname">hydrus.utils.</code><code class="descname">set_hydrus_server_url</code><span class="sig-paren">(</span><em>application: flask.app.Flask</em>, <em>server_url: str</em><span class="sig-paren">)</span> &#x2192; Iterator<a class="headerlink" href="#hydrus.utils.set_hydrus_server_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the server URL for the app (before it is run in main.py).
+:param application: Flask app object</p>
+<blockquote>
+<div>&lt;flask.app.Flask&gt;</div></blockquote>
+<dl class="docutils">
+<dt>:param server_url <span class="classifier-delimiter">:</span> <span class="classifier">Server URL</span></dt>
+<dd>&lt;str&gt;</dd>
+<dt>Raises:</dt>
+<dd>TypeError: If the <cite>server_url</cite> is not a string.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.utils.set_page_size">
+<code class="descclassname">hydrus.utils.</code><code class="descname">set_page_size</code><span class="sig-paren">(</span><em>application: flask.app.Flask</em>, <em>page_size: int</em><span class="sig-paren">)</span> &#x2192; Iterator<a class="headerlink" href="#hydrus.utils.set_page_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the page_size of a page view.
+:param application: Flask app object</p>
+<blockquote>
+<div>&lt;flask.app.Flask&gt;</div></blockquote>
+<dl class="docutils">
+<dt>:param page_size <span class="classifier-delimiter">:</span> <span class="classifier">Number of maximum elements a page can contain</span></dt>
+<dd>&lt;int&gt;</dd>
+<dt>Raises:</dt>
+<dd>TypeError: If <cite>page_size</cite> is not an int.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.utils.set_pagination">
+<code class="descclassname">hydrus.utils.</code><code class="descname">set_pagination</code><span class="sig-paren">(</span><em>application: flask.app.Flask</em>, <em>paginate: bool</em><span class="sig-paren">)</span> &#x2192; Iterator<a class="headerlink" href="#hydrus.utils.set_pagination" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable or disable pagination.
+:param application: Flask app object</p>
+<blockquote>
+<div>&lt;flask.app.Flask&gt;</div></blockquote>
+<dl class="docutils">
+<dt>:param paginate <span class="classifier-delimiter">:</span> <span class="classifier">Pagination enabled or not</span></dt>
+<dd>&lt;bool&gt;</dd>
+<dt>Raises:</dt>
+<dd>TypeError: If <cite>paginate</cite> is not a bool.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.utils.set_session">
+<code class="descclassname">hydrus.utils.</code><code class="descname">set_session</code><span class="sig-paren">(</span><em>application: flask.app.Flask</em>, <em>DB_SESSION: sqlalchemy.orm.scoping.scoped_session</em><span class="sig-paren">)</span> &#x2192; Iterator<a class="headerlink" href="#hydrus.utils.set_session" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the Database Session for the app before it is run in main.py.
+:param application: Flask app object</p>
+<blockquote>
+<div>&lt;flask.app.Flask&gt;</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>DB_SESSION</strong> – SQLalchemy Session object
+&lt;sqlalchemy.orm.session.Session&gt;</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Raises:</dt>
+<dd>TypeError: If <cite>DB_SESSION</cite> is not an instance of <cite>scoped_session</cite> or <cite>Session</cite>.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="hydrus.utils.set_token">
+<code class="descclassname">hydrus.utils.</code><code class="descname">set_token</code><span class="sig-paren">(</span><em>application: flask.app.Flask</em>, <em>token: bool</em><span class="sig-paren">)</span> &#x2192; Iterator<a class="headerlink" href="#hydrus.utils.set_token" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set whether API needs to implement token based authentication.</p>
+<dl class="docutils">
+<dt>Raises:</dt>
+<dd>TypeError: If <cite>token</cite> is not a boolean value.</dd>
+</dl>
+</dd></dl>
+
+</div>
 </div>
 <div class="section" id="module-hydrus">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-hydrus" title="Permalink to this headline">¶</a></h2>
@@ -68,8 +1149,21 @@
   <ul>
 <li><a class="reference internal" href="#">hydrus package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#hydrus-app-module">hydrus.app module</a></li>
-<li><a class="reference internal" href="#hydrus-utils-module">hydrus.utils module</a></li>
+<li><a class="reference internal" href="#module-hydrus.app">hydrus.app module</a></li>
+<li><a class="reference internal" href="#module-hydrus.app_factory">hydrus.app_factory module</a></li>
+<li><a class="reference internal" href="#module-hydrus.auth">hydrus.auth module</a></li>
+<li><a class="reference internal" href="#module-hydrus.conf">hydrus.conf module</a></li>
+<li><a class="reference internal" href="#module-hydrus.helpers">hydrus.helpers module</a></li>
+<li><a class="reference internal" href="#module-hydrus.item_collection_helpers">hydrus.item_collection_helpers module</a></li>
+<li><a class="reference internal" href="#module-hydrus.itemhelpers">hydrus.itemhelpers module</a></li>
+<li><a class="reference internal" href="#module-hydrus.items_helpers">hydrus.items_helpers module</a></li>
+<li><a class="reference internal" href="#module-hydrus.resources">hydrus.resources module</a></li>
+<li><a class="reference internal" href="#module-hydrus.socketio_factory">hydrus.socketio_factory module</a></li>
+<li><a class="reference internal" href="#module-hydrus.sync_namespace">hydrus.sync_namespace module</a></li>
+<li><a class="reference internal" href="#module-hydrus.utils">hydrus.utils module</a><ul>
+<li><a class="reference internal" href="#pluggable-utilities-for-hydrus">Pluggable utilities for Hydrus.</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-hydrus">Module contents</a></li>
 </ul>
 </li>
